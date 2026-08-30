@@ -18,7 +18,7 @@ export const heroMetrics = [
     prefix: "",
     suffix: "%",
     decimals: 0,
-    label: "Strategic partnership retention rate (VisideaX track)",
+    label: "Strategic partnership retention rate (our track record)",
   },
 ];
 
@@ -50,6 +50,7 @@ export const pillars = [
       "Capital + Operator: institutional funding paired with proven hospitality execution",
       "Brand + Territory: luxury identity matched to a territory's authentic character",
       "Asset + Lifestyle: real estate positioned within a living, curated lifestyle narrative",
+      "Entrepreneur + Territory: partnerships between private entrepreneurs and the local jurisdiction itself, structured under English or Swiss law and anchored in London or St. Moritz",
     ],
   },
   {
@@ -82,7 +83,7 @@ export const advisoryServices = [
     id: "territorial-alignment",
     title: "Territorial Alignment",
     description:
-      "Reconciling investor ambition with cantonal, communal, and community interests before a single term sheet is drafted.",
+      "Structuring partnerships between private entrepreneurs and the local territory itself — anchored under English or Swiss jurisdiction, in London or St. Moritz, depending on where the mandate is best served.",
   },
   {
     id: "swiss-compliance",

@@ -30,8 +30,11 @@ const mandateSchema = z.object({
 
 type MandateFormValues = z.infer<typeof mandateSchema>;
 
+const WEB3FORMS_ACCESS_KEY = "e667efc9-bc88-4b01-b39a-3d6fa43ae448";
+
 export function Contact() {
   const [submitted, setSubmitted] = React.useState(false);
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
 
   const {
     register,
@@ -51,10 +54,41 @@ export function Contact() {
     },
   });
 
-  const onSubmit = async (_data: MandateFormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 900));
-    setSubmitted(true);
-    reset();
+  const onSubmit = async (data: MandateFormValues) => {
+    setSubmitError(null);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New confidential mandate request — ${data.entityName}`,
+          "Entity / Family Office Name": data.entityName,
+          "Full Name": data.contactName,
+          email: data.email,
+          "Target Assets / Territory": data.territory,
+          "Additional Context": data.message || "—",
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitted(true);
+        reset();
+      } else {
+        setSubmitError(
+          "Something went wrong sending your request. Please try again or email us directly."
+        );
+      }
+    } catch {
+      setSubmitError(
+        "Something went wrong sending your request. Please try again or email us directly."
+      );
+    }
   };
 
   return (
@@ -209,6 +243,10 @@ export function Contact() {
                     </div>
                   )}
                 />
+
+                {submitError && (
+                  <p className="text-center text-sm text-red-400">{submitError}</p>
+                )}
 
                 <Button
                   type="submit"

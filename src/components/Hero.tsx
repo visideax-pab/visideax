@@ -19,8 +19,17 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-alpine-gradient noise-overlay pt-32 pb-16"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden noise-overlay pt-32 pb-16"
     >
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url(/images/st-moritz.jpg)" }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-alpine-gradient opacity-[0.93]"
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.08]"

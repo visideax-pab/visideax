@@ -12,7 +12,7 @@ export function ExecutiveOverview() {
         <SectionHeading
           eyebrow="Executive Overview"
           title="A Market Thesis Built for Discretion, Not Volume"
-          description="VisideaX does not run auctions. We architect structured partnerships between capital, brand, and territory — engineered to survive decades, not just a closing date."
+          description="We do not run auctions. We architect structured partnerships between capital, brand, and territory — engineered to survive decades, not just a closing date."
         />
 
         <motion.div
@@ -27,11 +27,13 @@ export function ExecutiveOverview() {
           </div>
           <span className="eyebrow text-alpine-gold">A Boutique, By Design</span>
           <p className="text-balance text-sm leading-relaxed text-alpine-cream/75 sm:text-base">
-            VisideaX is not built for recognition. We work for a small circle of
+            We are not built for recognition. We work for a small circle of
             trusted principals, not for public visibility — most of what we
             structure is never announced, and many of our closed mandates stay
             private long after they close. If you know of us, it is because
-            someone we already trust introduced you.
+            someone we already trust introduced you. We complete a
+            deliberately small number of mandates each year — never many,
+            always structured to last decades, not to fill a quota.
           </p>
         </motion.div>
 

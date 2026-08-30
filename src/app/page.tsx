@@ -1,4 +1,5 @@
 import { Hero } from "@/components/Hero";
+import { Territories } from "@/components/Territories";
 import { ExecutiveOverview } from "@/components/ExecutiveOverview";
 import { Pillars } from "@/components/Pillars";
 import { AdvisoryMatrix } from "@/components/AdvisoryMatrix";
@@ -8,6 +9,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <Territories />
       <ExecutiveOverview />
       <Pillars />
       <AdvisoryMatrix />
