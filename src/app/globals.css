@@ -15,12 +15,17 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
   background-color: #f4f9fc;
   color: #0b2e4e;
   font-feature-settings: "ss01" on, "ss02" on;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 ::selection {

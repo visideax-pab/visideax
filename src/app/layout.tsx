@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
@@ -19,12 +19,12 @@ const body = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "VisideaX | Strategic Partnership Advisory",
+  title: "VisideaX | Partnership Advisory Boutique",
   description:
     "VisideaX architects durable alliances between capital, luxury brands, and the European territories that anchor them. A private Swiss boutique advisory operating by introduction only, across St. Moritz, Zürich, and London.",
   keywords: [
     "VisideaX",
-    "Strategic Partnership Advisory",
+    "Partnership Advisory Boutique",
     "Swiss boutique advisory",
     "St. Moritz",
     "Zürich",
@@ -35,12 +35,19 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "VisideaX" }],
   openGraph: {
-    title: "VisideaX | Strategic Partnership Advisory",
+    title: "VisideaX | Partnership Advisory Boutique",
     description:
       "Architects of durable alliances between capital, luxury brands, and the European territories that anchor them.",
     type: "website",
     locale: "en_CH",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

@@ -72,7 +72,7 @@ export function Hero() {
         >
           VisideaX
           <span className="mx-4 text-alpine-gold">|</span>
-          Strategic Partnership Advisory
+          Partnership Advisory Boutique
         </motion.h1>
 
         <motion.p

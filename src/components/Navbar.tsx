@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "#overview", label: "Overview" },
-  { href: "#pillars", label: "Pillars" },
-  { href: "#advisory", label: "Advisory" },
+  { href: "/#overview", label: "Overview" },
+  { href: "/#pillars", label: "Pillars" },
+  { href: "/#advisory", label: "Advisory" },
+  { href: "/team", label: "Team" },
 ];
 
 export function Navbar() {
@@ -33,7 +34,7 @@ export function Navbar() {
       )}
     >
       <div className="container flex items-center justify-between">
-        <a href="#top" className="flex items-center group">
+        <a href="/#top" className="flex items-center group">
           <img src="/logo-mark-light.svg" alt="VisideaX" className="h-7 w-auto sm:h-8" />
         </a>
 
@@ -51,7 +52,7 @@ export function Navbar() {
 
         <div className="hidden lg:block">
           <Button variant="gold" size="sm" asChild>
-            <a href="#contact">Request Mandate</a>
+            <a href="/#contact">Request Mandate</a>
           </Button>
         </div>
 
@@ -85,7 +86,7 @@ export function Navbar() {
                 </a>
               ))}
               <Button variant="gold" size="default" className="mt-5 w-full" asChild>
-                <a href="#contact" onClick={() => setOpen(false)}>
+                <a href="/#contact" onClick={() => setOpen(false)}>
                   Request Mandate
                 </a>
               </Button>

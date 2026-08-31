@@ -13,9 +13,9 @@ export function Footer() {
               className="h-9 w-auto"
             />
             <p className="mt-5 text-sm leading-relaxed text-alpine-cream/50">
-              Strategic Partnership Advisory. A private boutique architecting
-              durable alliances between capital, luxury brands, and the
-              European territories that anchor them.
+              Partnership Advisory Boutique. Architecting durable alliances
+              between capital, luxury brands, and the European territories
+              that anchor them.
             </p>
           </div>
 
@@ -40,13 +40,16 @@ export function Footer() {
           <div>
             <span className="eyebrow text-alpine-gold">Navigate</span>
             <div className="mt-5 flex flex-col gap-3">
-              <a href="#overview" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              <a href="/#overview" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Executive Overview
               </a>
-              <a href="#advisory" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              <a href="/#advisory" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Advisory Services
               </a>
-              <a href="#contact" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              <a href="/team" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+                Team
+              </a>
+              <a href="/#contact" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Confidential Mandate
               </a>
             </div>
@@ -80,7 +83,7 @@ export function Footer() {
             © {new Date().getFullYear()} VisideaX. All rights reserved.
           </p>
           <p className="text-xs text-alpine-cream/30">
-            Strategic Partnership Advisory — St. Moritz · Zürich · London
+            Partnership Advisory Boutique — St. Moritz · Zürich · London
           </p>
         </div>
       </div>

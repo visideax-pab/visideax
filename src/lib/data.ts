@@ -106,3 +106,36 @@ export const advisoryServices = [
 ];
 
 export const footprint = ["St. Moritz", "Zürich", "London"];
+
+export const team = [
+  {
+    name: "Francesco Rocca",
+    role: "Founder & Chief Executive Officer",
+    location: "St. Moritz",
+    bio: "Leads origination and overall strategic direction across the firm's territorial network, translating on-the-ground relationships in St. Moritz into structured, durable mandates.",
+  },
+  {
+    name: "Federico del Maestro",
+    role: "Managing Partner",
+    location: "Zürich",
+    bio: "Oversees operational execution, financial governance, and risk architecture across every mandate, ensuring alliances remain disciplined from structuring through launch.",
+  },
+  {
+    name: "Isabelle Wenger",
+    role: "Head of Legal & Regulatory Affairs",
+    location: "Zürich",
+    bio: "Directs regulatory strategy across Swiss corporate and foreign-ownership law, with particular depth in Lex Koller compliance and cantonal licensing frameworks.",
+  },
+  {
+    name: "James Ashworth",
+    role: "Head of Origination, London",
+    location: "London",
+    bio: "Manages the firm's international capital relationships, connecting UK and global principals with vetted opportunities across the Swiss and European network.",
+  },
+  {
+    name: "Marco Conti",
+    role: "Director of Structuring",
+    location: "St. Moritz",
+    bio: "Architects the corporate and fiscal frameworks behind each partnership, from NewCo formation to shareholder agreements and voting structures.",
+  },
+];
