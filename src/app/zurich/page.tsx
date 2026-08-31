@@ -49,8 +49,8 @@ export default function ZurichPage() {
             Zürich
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/70 sm:text-lg">
-            Switzerland's financial and legal capital is where every VisideaX
-            alliance is given its structural backbone.
+            Switzerland&apos;s financial and legal capital is where every
+            VisideaX alliance is given its structural backbone.
           </p>
         </div>
       </section>

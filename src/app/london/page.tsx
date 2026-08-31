@@ -49,8 +49,8 @@ export default function LondonPage() {
             London
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/70 sm:text-lg">
-            The firm's window onto international capital — and the desk that
-            brings it, quietly, into the Swiss network.
+            The firm&apos;s window onto international capital — and the desk
+            that brings it, quietly, into the Swiss network.
           </p>
         </div>
       </section>
