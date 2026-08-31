@@ -123,6 +123,13 @@ export const team = [
     photo: "/team/federico-del-maestro.jpg",
   },
   {
+    name: "Riccardo Del Maestro",
+    role: "Director, M&A Advisory",
+    location: "Zürich",
+    bio: "Brings years of M&A experience from KPMG to the firm's transaction work, supporting the Managing Partner on deal structuring, due diligence, and counterparty valuation.",
+    photo: "/team/riccardo-del-maestro.jpg",
+  },
+  {
     name: "Isabelle Wenger",
     role: "Head of Legal & Regulatory Affairs",
     location: "Zürich",
