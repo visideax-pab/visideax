@@ -113,12 +113,14 @@ export const team = [
     role: "Founder & Chief Executive Officer",
     location: "St. Moritz",
     bio: "Leads origination and overall strategic direction across the firm's territorial network, translating on-the-ground relationships in St. Moritz into structured, durable mandates.",
+    photo: "/team/francesco-rocca.jpg",
   },
   {
     name: "Federico del Maestro",
     role: "Managing Partner",
     location: "Zürich",
     bio: "Oversees operational execution, financial governance, and risk architecture across every mandate, ensuring alliances remain disciplined from structuring through launch.",
+    photo: "/team/federico-del-maestro.jpg",
   },
   {
     name: "Isabelle Wenger",

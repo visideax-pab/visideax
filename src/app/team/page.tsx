@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ShieldCheck } from "lucide-react";
 import { team } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -40,12 +41,20 @@ export default function TeamPage() {
                 key={member.name}
                 className="border border-alpine-slate/10 bg-white/60 p-9"
               >
-                <div className="flex h-14 w-14 items-center justify-center border border-alpine-gold/40 font-display text-lg text-alpine-gold">
-                  {member.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </div>
+                {member.photo ? (
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="h-16 w-16 rounded-full border border-alpine-gold/40 object-cover"
+                  />
+                ) : (
+                  <div className="flex h-14 w-14 items-center justify-center border border-alpine-gold/40 font-display text-lg text-alpine-gold">
+                    {member.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </div>
+                )}
                 <h3 className="mt-6 font-display text-xl text-alpine-slate">
                   {member.name}
                 </h3>
@@ -60,6 +69,19 @@ export default function TeamPage() {
                 </p>
               </div>
             ))}
+          </div>
+
+          <div className="mx-auto mt-16 flex max-w-3xl flex-col items-center gap-5 border border-alpine-gold/40 bg-alpine-slate px-8 py-10 text-center sm:px-14">
+            <div className="flex h-11 w-11 items-center justify-center border border-alpine-gold/40 text-alpine-gold">
+              <ShieldCheck size={20} strokeWidth={1.5} />
+            </div>
+            <span className="eyebrow text-alpine-gold">Personal Oversight</span>
+            <p className="text-balance text-sm leading-relaxed text-alpine-cream/75 sm:text-base">
+              Every mandate — before it is accepted, and before it is
+              closed — is reviewed and approved personally by Francesco
+              Rocca and Federico del Maestro. No engagement moves forward
+              without passing through both of their hands.
+            </p>
           </div>
         </div>
       </section>
