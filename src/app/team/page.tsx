@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
 import { team } from "@/lib/data";
+import { TeamGrid } from "@/components/TeamGrid";
 
 export const metadata: Metadata = {
   title: "Team | VisideaX",
@@ -29,50 +29,15 @@ export default function TeamPage() {
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/65">
             A small, senior team spanning origination, structuring, and
-            regulatory affairs across St. Moritz, Zürich, and London.
+            regulatory affairs across St. Moritz, Zürich, and London. Click
+            any profile to read more.
           </p>
         </div>
       </section>
 
       <section className="bg-alpine-cream py-20 sm:py-28">
         <div className="container">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((member) => (
-              <div
-                key={member.name}
-                className="border border-alpine-slate/10 bg-white/60 p-9"
-              >
-                {member.photo ? (
-                  <Image
-                    src={member.photo}
-                    alt={member.name}
-                    width={64}
-                    height={64}
-                    className="h-16 w-16 rounded-full border border-alpine-gold/40 object-cover"
-                  />
-                ) : (
-                  <div className="flex h-14 w-14 items-center justify-center border border-alpine-gold/40 font-display text-lg text-alpine-gold">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </div>
-                )}
-                <h3 className="mt-6 font-display text-xl text-alpine-slate">
-                  {member.name}
-                </h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.1em] text-alpine-gold">
-                  {member.role}
-                </p>
-                <p className="mt-1 text-xs font-medium uppercase tracking-[0.08em] text-alpine-slate/40">
-                  {member.location}
-                </p>
-                <p className="mt-5 text-sm leading-relaxed text-alpine-slate/60">
-                  {member.bio}
-                </p>
-              </div>
-            ))}
-          </div>
+          <TeamGrid team={team} />
 
           <div className="mx-auto mt-16 flex max-w-3xl flex-col items-center gap-5 border border-alpine-gold/40 bg-alpine-slate px-8 py-10 text-center sm:px-14">
             <div className="flex h-11 w-11 items-center justify-center border border-alpine-gold/40 text-alpine-gold">
