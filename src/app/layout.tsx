@@ -3,6 +3,7 @@ import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { CookieConsent } from "@/components/CookieConsent";
 
 const display = Playfair_Display({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ const body = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://visideax.com"),
   title: "VisideaX | Partnership Advisory Boutique",
   description:
     "VisideaX architects durable alliances between capital, luxury brands, and the European territories that anchor them. A private Swiss boutique advisory operating by introduction only, across St. Moritz, Zürich, and London.",
@@ -40,7 +42,36 @@ export const metadata: Metadata = {
       "Architects of durable alliances between capital, luxury brands, and the European territories that anchor them.",
     type: "website",
     locale: "en_CH",
+    images: ["/logo-mark-square.png"],
   },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "VisideaX",
+  url: "https://visideax.com",
+  logo: "https://visideax.com/logo-mark-square.png",
+  description:
+    "A private Swiss boutique advisory architecting strategic partnerships between capital, luxury brands, and territories across St. Moritz, Zürich, and London.",
+  address: [
+    {
+      "@type": "PostalAddress",
+      addressLocality: "St. Moritz",
+      addressCountry: "CH",
+    },
+    {
+      "@type": "PostalAddress",
+      addressLocality: "Zürich",
+      addressCountry: "CH",
+    },
+    {
+      "@type": "PostalAddress",
+      addressLocality: "London",
+      addressCountry: "GB",
+    },
+  ],
+  sameAs: ["https://www.linkedin.com/company/visideax-/about/"],
 };
 
 export const viewport: Viewport = {
@@ -58,9 +89,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body className="font-body bg-alpine-cream text-alpine-slate antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <Navbar />
         {children}
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   );

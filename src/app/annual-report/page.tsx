@@ -222,6 +222,13 @@ export default function AnnualReportPage() {
                     <FileText size={14} />
                     Shared directly by email upon approval
                   </div>
+                  <p className="text-center text-xs text-alpine-slate/35">
+                    Your information is used solely by VisideaX to respond to
+                    your request and is never shared with third parties.{" "}
+                    <a href="/privacy" className="underline hover:text-alpine-slate">
+                      Privacy Policy
+                    </a>
+                  </p>
                 </motion.form>
               )}
             </AnimatePresence>

@@ -88,9 +88,17 @@ export function Footer() {
           <p className="text-xs text-alpine-cream/30">
             © {new Date().getFullYear()} VisideaX. All rights reserved.
           </p>
-          <p className="text-xs text-alpine-cream/30">
-            Partnership Advisory Boutique — St. Moritz · Zürich · London
-          </p>
+          <div className="flex items-center gap-6">
+            <a
+              href="/privacy"
+              className="text-xs text-alpine-cream/30 hover:text-alpine-gold transition-colors"
+            >
+              Privacy Policy
+            </a>
+            <p className="text-xs text-alpine-cream/30">
+              Partnership Advisory Boutique — St. Moritz · Zürich · London
+            </p>
+          </div>
         </div>
       </div>
     </footer>

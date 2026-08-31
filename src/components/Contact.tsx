@@ -265,6 +265,13 @@ export function Contact() {
                   <ShieldCheck size={14} />
                   Protected under Swiss legal privilege
                 </div>
+                <p className="text-center text-xs text-alpine-cream/35">
+                  Your information is used solely by VisideaX to respond to
+                  your request and is never shared with third parties.{" "}
+                  <a href="/privacy" className="underline hover:text-alpine-gold">
+                    Privacy Policy
+                  </a>
+                </p>
               </motion.form>
             )}
           </AnimatePresence>
