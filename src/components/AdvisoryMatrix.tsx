@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/SectionHeading";
+import { TiltCard } from "@/components/TiltCard";
 import { advisoryServices } from "@/lib/data";
 
 export function AdvisoryMatrix() {
@@ -22,12 +23,13 @@ export function AdvisoryMatrix() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="border border-alpine-slate/10 bg-white/60 p-8 transition-colors hover:border-alpine-gold/40"
             >
-              <h3 className="font-display text-lg text-alpine-slate">{service.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-alpine-slate/55">
-                {service.description}
-              </p>
+              <TiltCard className="border border-alpine-slate/10 bg-white/60 p-8 transition-colors hover:border-alpine-gold/40">
+                <h3 className="font-display text-lg text-alpine-slate">{service.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-alpine-slate/55">
+                  {service.description}
+                </p>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

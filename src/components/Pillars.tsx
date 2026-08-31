@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Shield, Network, Scale } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
+import { TiltCard } from "@/components/TiltCard";
 import { pillars } from "@/lib/data";
 
 const icons = [Shield, Network, Scale];
@@ -37,28 +38,29 @@ export function Pillars() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative border border-alpine-cream/10 bg-alpine-navy/50 p-9 transition-colors hover:border-alpine-gold/40"
               >
-                <div className="flex h-12 w-12 items-center justify-center border border-alpine-gold/40 text-alpine-gold">
-                  <Icon size={22} strokeWidth={1.5} />
-                </div>
-                <h3 className="mt-7 font-display text-xl text-alpine-cream">
-                  {pillar.title}
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-alpine-cream/60">
-                  {pillar.description}
-                </p>
-                <ul className="mt-6 space-y-3 border-t border-alpine-cream/10 pt-6">
-                  {pillar.points.map((point) => (
-                    <li
-                      key={point}
-                      className="flex items-start gap-2.5 text-[0.82rem] leading-relaxed text-alpine-cream/70"
-                    >
-                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-alpine-gold" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+                <TiltCard className="group border border-alpine-cream/10 bg-alpine-navy/50 p-9 transition-colors hover:border-alpine-gold/40">
+                  <div className="flex h-12 w-12 items-center justify-center border border-alpine-gold/40 text-alpine-gold">
+                    <Icon size={22} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="mt-7 font-display text-xl text-alpine-cream">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-alpine-cream/60">
+                    {pillar.description}
+                  </p>
+                  <ul className="mt-6 space-y-3 border-t border-alpine-cream/10 pt-6">
+                    {pillar.points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex items-start gap-2.5 text-[0.82rem] leading-relaxed text-alpine-cream/70"
+                      >
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-alpine-gold" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </TiltCard>
               </motion.div>
             );
           })}

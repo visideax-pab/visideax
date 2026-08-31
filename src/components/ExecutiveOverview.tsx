@@ -3,12 +3,17 @@
 import { motion } from "framer-motion";
 import { EyeOff } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
+import { FlowField } from "@/components/FlowField";
 import { thesisPoints } from "@/lib/data";
 
 export function ExecutiveOverview() {
   return (
-    <section id="overview" className="relative bg-alpine-cream py-28 lg:py-36">
-      <div className="container">
+    <section
+      id="overview"
+      className="relative overflow-hidden bg-alpine-cream py-28 lg:py-36"
+    >
+      <FlowField className="pointer-events-auto absolute inset-0" />
+      <div className="container relative">
         <SectionHeading
           eyebrow="Executive Overview"
           title="A Market Thesis Built for Discretion, Not Volume"

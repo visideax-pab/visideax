@@ -43,9 +43,10 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-alpine-cream/70 hover:text-alpine-gold transition-colors"
+              className="group relative text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-alpine-cream/70 transition-colors hover:text-alpine-gold"
             >
               {link.label}
+              <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-alpine-gold transition-transform duration-300 ease-out group-hover:scale-x-100" />
             </a>
           ))}
         </nav>

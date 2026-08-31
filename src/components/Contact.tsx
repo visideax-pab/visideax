@@ -22,7 +22,7 @@ const mandateSchema = z.object({
   territory: z
     .string()
     .min(2, "Please describe the target assets or territory."),
-  message: z.string().optional(),
+  message: z.string().min(10, "Please provide some context for your request."),
   nda: z.literal(true, {
     errorMap: () => ({ message: "Confidentiality acknowledgment is required." }),
   }),
@@ -70,7 +70,7 @@ export function Contact() {
           "Full Name": data.contactName,
           email: data.email,
           "Target Assets / Territory": data.territory,
-          "Additional Context": data.message || "—",
+          "Context": data.message,
         }),
       });
 
@@ -210,7 +210,7 @@ export function Contact() {
 
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-alpine-cream/60">
-                    Additional Context (Optional)
+                    Context
                   </Label>
                   <Textarea
                     id="message"
@@ -218,6 +218,9 @@ export function Contact() {
                     className="border-alpine-cream/20 text-alpine-cream placeholder:text-alpine-cream/30 focus:border-alpine-gold"
                     {...register("message")}
                   />
+                  {errors.message && (
+                    <p className="text-xs text-red-400">{errors.message.message}</p>
+                  )}
                 </div>
 
                 <Controller

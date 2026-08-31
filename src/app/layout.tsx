@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 const display = Playfair_Display({
   subsets: ["latin"],
@@ -93,6 +94,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <ScrollProgress />
         <Navbar />
         {children}
         <Footer />
