@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 const territories = [
@@ -33,9 +34,12 @@ export function Territories() {
             transition={{ duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="group relative h-[280px] overflow-hidden sm:h-[340px]"
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
-              style={{ backgroundImage: `url(${territory.image})` }}
+            <Image
+              src={territory.image}
+              alt={territory.name}
+              fill
+              sizes="(min-width: 640px) 33vw, 100vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-alpine-slate/55" />
             <div className="absolute inset-0 bg-gradient-to-t from-alpine-slate via-alpine-slate/20 to-transparent" />

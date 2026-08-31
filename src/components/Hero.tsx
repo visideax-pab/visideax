@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,10 +22,13 @@ export function Hero() {
       id="top"
       className="relative flex min-h-screen flex-col justify-center overflow-hidden noise-overlay pt-32 pb-16"
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url(/images/st-moritz.jpg)" }}
+      <Image
+        src="/images/st-moritz.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
       />
       <div
         aria-hidden

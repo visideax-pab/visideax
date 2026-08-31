@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
 import { team } from "@/lib/data";
 
@@ -42,9 +43,11 @@ export default function TeamPage() {
                 className="border border-alpine-slate/10 bg-white/60 p-9"
               >
                 {member.photo ? (
-                  <img
+                  <Image
                     src={member.photo}
                     alt={member.name}
+                    width={64}
+                    height={64}
                     className="h-16 w-16 rounded-full border border-alpine-gold/40 object-cover"
                   />
                 ) : (
