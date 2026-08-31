@@ -1,5 +1,6 @@
 export const heroMetrics = [
   {
+    type: "counter" as const,
     value: 2.4,
     prefix: "€",
     suffix: "T",
@@ -7,6 +8,7 @@ export const heroMetrics = [
     label: "Global luxury market cap (2026)",
   },
   {
+    type: "counter" as const,
     value: 3,
     prefix: "<",
     suffix: "%",
@@ -14,11 +16,9 @@ export const heroMetrics = [
     label: "Traditional M&A success rate in lifestyle assets",
   },
   {
-    value: 85,
-    prefix: "",
-    suffix: "%",
-    decimals: 0,
-    label: "Strategic partnership retention rate (our track record)",
+    type: "text" as const,
+    text: "Multi-Million Mandates, Built to Last",
+    label: "Our ambition for every partnership",
   },
 ];
 

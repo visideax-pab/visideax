@@ -118,13 +118,18 @@ export function Hero() {
         >
           {heroMetrics.map((metric) => (
             <div key={metric.label} className="flex flex-col items-center">
-              <div className="font-display text-4xl text-alpine-gold sm:text-5xl">
-                <AnimatedCounter
-                  value={metric.value}
-                  decimals={metric.decimals}
-                  prefix={metric.prefix}
-                  suffix={metric.suffix}
-                />
+              <div className="font-display text-2xl text-alpine-gold sm:text-3xl">
+                {metric.type === "counter" ? (
+                  <AnimatedCounter
+                    value={metric.value}
+                    decimals={metric.decimals}
+                    prefix={metric.prefix}
+                    suffix={metric.suffix}
+                    className="text-4xl sm:text-5xl"
+                  />
+                ) : (
+                  metric.text
+                )}
               </div>
               <p className="mt-3 max-w-[220px] text-center text-xs font-medium uppercase tracking-[0.12em] text-alpine-cream/55">
                 {metric.label}
