@@ -11,12 +11,11 @@ const WHITE = rgb(1, 1, 1);
 const LINE = rgb(0xdc / 255, 0xe6 / 255, 0xee / 255);
 
 interface GenerateBody {
+  presentation: string;
   description: string;
   projectType: ProjectType;
   location: string;
-  sizeSqm: number;
-  keysOrUnits: number;
-  membershipFee: number;
+  eventAttendees: number;
   contactName: string;
   contactEmail: string;
   contactEntity: string;
@@ -55,34 +54,39 @@ export async function POST(req: NextRequest) {
   let page = pdfDoc.addPage([pageW, pageH]);
   let y = pageH - 40;
 
-  // Header band
-  page.drawRectangle({ x: 0, y: pageH - 70, width: pageW, height: 70, color: NAVY });
+  const drawHeader = () => {
+    page.drawRectangle({ x: 0, y: pageH - 70, width: pageW, height: 70, color: NAVY });
+    page.drawText("VisideaX", { x: margin + 38, y: pageH - 46, size: 16, font: fontBold, color: WHITE });
+    page.drawText("Feasibility & Partnership Estimate — Prepared Confidentially", {
+      x: margin + 38,
+      y: pageH - 62,
+      size: 9,
+      font,
+      color: BLUE,
+    });
+  };
+
+  let logoImg: any = null;
   try {
     const logoPath = path.join(process.cwd(), "public", "logo-mark-square.png");
     const logoBytes = await fs.readFile(logoPath);
-    const logoImg = await pdfDoc.embedPng(logoBytes);
-    page.drawImage(logoImg, { x: margin, y: pageH - 56, width: 28, height: 28 });
+    logoImg = await pdfDoc.embedPng(logoBytes);
   } catch {
     // logo optional
   }
-  page.drawText("VisideaX", {
-    x: margin + 38,
-    y: pageH - 46,
-    size: 16,
-    font: fontBold,
-    color: WHITE,
-  });
-  page.drawText("Real Estate Feasibility Estimate — Prepared Confidentially", {
-    x: margin + 38,
-    y: pageH - 62,
-    size: 9,
-    font,
-    color: BLUE,
-  });
+
+  drawHeader();
+  if (logoImg) page.drawImage(logoImg, { x: margin, y: pageH - 56, width: 28, height: 28 });
 
   y = pageH - 100;
 
   const heading = (text: string) => {
+    if (y < 110) {
+      page = pdfDoc.addPage([pageW, pageH]);
+      drawHeader();
+      if (logoImg) page.drawImage(logoImg, { x: margin, y: pageH - 56, width: 28, height: 28 });
+      y = pageH - 100;
+    }
     page.drawText(text, { x: margin, y, size: 13, font: fontBold, color: NAVY });
     y -= 20;
   };
@@ -106,6 +110,10 @@ export async function POST(req: NextRequest) {
   };
 
   const row = (l: string, v: string, boldValue = false) => {
+    if (y < 60) {
+      page = pdfDoc.addPage([pageW, pageH]);
+      y = pageH - 60;
+    }
     page.drawText(l, { x: margin, y, size: 10, font, color: MUTED });
     const valFont = boldValue ? fontBold : font;
     const valColor = boldValue ? NAVY : rgb(0.15, 0.2, 0.26);
@@ -126,22 +134,25 @@ export async function POST(req: NextRequest) {
   label(`${body.contactName || "—"}${body.contactEntity ? " · " + body.contactEntity : ""}`);
   label(body.contactEmail || "—");
   label(`Date: ${date}`);
+  label("Consent to share this information with VisideaX: confirmed");
   y -= 10;
+
+  heading("About the Client");
+  bodyText(body.presentation || "No presentation provided.");
 
   heading("Project Summary");
   const typeLabel = PROJECT_TYPES.find((t) => t.value === body.projectType)?.label ?? body.projectType;
-  label(`Location: ${body.location || "—"}`);
+  const r = body.result;
   label(`Project type: ${typeLabel}`);
-  if (body.sizeSqm > 0) label(`Approx. size: ${fmtChf(body.sizeSqm)} sqm`);
-  if (body.keysOrUnits > 0) label(`Approx. keys / capacity: ${fmtChf(body.keysOrUnits)}`);
+  if (r.category === "real-estate") label(`Location: ${body.location || "—"}`);
+  if (r.category === "event" && body.eventAttendees > 0) label(`Expected attendees: ${fmtChf(body.eventAttendees)}`);
   y -= 6;
   bodyText(body.description || "No description provided.");
 
   heading("Illustrative Feasibility Estimate");
-  const r = body.result;
-  row("Indicative value / sqm", `CHF ${fmtChf(r.valuePerSqm)}`);
-  row("Indicative cost / sqm", `CHF ${fmtChf(r.costPerSqm)}`);
-  row("Estimated Cost", `CHF ${fmtChf(r.estimatedCost)}`, true);
+  if (r.valuePerSqm !== null) row("Indicative value / sqm", `CHF ${fmtChf(r.valuePerSqm)}`);
+  if (r.costPerSqm !== null) row("Indicative cost / sqm", `CHF ${fmtChf(r.costPerSqm)}`);
+  if (r.estimatedCost !== null) row("Estimated Cost", `CHF ${fmtChf(r.estimatedCost)}`, true);
   if (r.grossAssetValue !== null) {
     row("Estimated Gross Asset Value", `CHF ${fmtChf(r.grossAssetValue)}`, true);
     row("Estimated Development Margin", `CHF ${fmtChf(r.estimatedMargin ?? 0)}`, true);
@@ -150,17 +161,19 @@ export async function POST(req: NextRequest) {
     if (r.estimatedAdr !== null) row("Estimated ADR", `CHF ${fmtChf(r.estimatedAdr)} / night`);
     row("Estimated Annual Revenue", `CHF ${fmtChf(r.annualRevenue)}`, true);
   }
+  if (r.sponsorshipRevenue !== null) row("Estimated Sponsorship Revenue", `CHF ${fmtChf(r.sponsorshipRevenue)}`, true);
+  if (r.dealValue !== null) row("Partnership / Transaction Value", `CHF ${fmtChf(r.dealValue)}`, true);
   row("Illustrative VisideaX Advisory Fee", `CHF ${fmtChf(r.advisoryFeeTotal)}`, true);
 
   y -= 14;
   heading("Important Notice");
   bodyText(
     "This document is an illustrative, order-of-magnitude planning estimate generated from indicative " +
-      "location benchmarks and standard cost ratios. It is not a valuation, appraisal, feasibility study, " +
-      "or offer, and does not constitute investment, legal, or tax advice. Real feasibility depends on the " +
-      "specific asset, zoning and permitting, financing terms, and execution. VisideaX has no operating " +
-      "history and this estimate does not reflect a completed transaction. Prepared confidentially for the " +
-      "named recipient only — not for further distribution.",
+      "benchmarks and standard assumptions. It is not a valuation, appraisal, feasibility study, or offer, " +
+      "and does not constitute investment, legal, or tax advice. Real feasibility depends on the specific " +
+      "asset or event, permits, partners, financing terms, and execution. VisideaX has no operating history " +
+      "and this estimate does not reflect a completed transaction. Prepared confidentially for the named " +
+      "recipient only — not for further distribution.",
     9
   );
 

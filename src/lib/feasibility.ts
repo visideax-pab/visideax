@@ -14,33 +14,59 @@ export interface Hub {
 // Guide). Lugano, Basel, Bern, and Lucerne have no equally current published
 // benchmark on hand, so they are marked as broad planning estimates.
 export const HUBS: Hub[] = [
-  { id: "st-moritz", name: "St. Moritz", canton: "Graubünden", x: 76, y: 66, valuePerSqm: 52000, sourced: true },
-  { id: "verbier", name: "Verbier", canton: "Valais", x: 30, y: 74, valuePerSqm: 45000, sourced: true },
-  { id: "gstaad", name: "Gstaad", canton: "Bern", x: 40, y: 60, valuePerSqm: 45000, sourced: true },
-  { id: "geneva-lake", name: "Cologny / Lake Geneva", canton: "Genève", x: 9, y: 84, valuePerSqm: 43000, sourced: true },
-  { id: "zurich-lake", name: "Küsnacht / Lake Zürich", canton: "Zürich", x: 65, y: 26, valuePerSqm: 37000, sourced: true },
-  { id: "zurich-city", name: "Zürich (city)", canton: "Zürich", x: 60, y: 30, valuePerSqm: 23350, sourced: true },
-  { id: "geneva-city", name: "Genève (city)", canton: "Genève", x: 11, y: 82, valuePerSqm: 21640, sourced: true },
-  { id: "lugano", name: "Lugano", canton: "Ticino", x: 56, y: 92, valuePerSqm: 15000, sourced: false },
-  { id: "lucerne", name: "Lucerne", canton: "Luzern", x: 51, y: 40, valuePerSqm: 12500, sourced: false },
-  { id: "bern", name: "Bern", canton: "Bern", x: 37, y: 44, valuePerSqm: 11500, sourced: false },
-  { id: "basel", name: "Basel", canton: "Basel-Stadt", x: 30, y: 10, valuePerSqm: 13000, sourced: false },
+  { id: "st-moritz", name: "St. Moritz", canton: "Graubünden", x: 76, y: 62, valuePerSqm: 52000, sourced: true },
+  { id: "verbier", name: "Verbier", canton: "Valais", x: 28, y: 76, valuePerSqm: 45000, sourced: true },
+  { id: "gstaad", name: "Gstaad", canton: "Bern", x: 42, y: 62, valuePerSqm: 45000, sourced: true },
+  { id: "geneva-lake", name: "Cologny / Lake Geneva", canton: "Genève", x: 8, y: 84, valuePerSqm: 43000, sourced: true },
+  { id: "zurich-lake", name: "Küsnacht / Lake Zürich", canton: "Zürich", x: 64, y: 27, valuePerSqm: 37000, sourced: true },
+  { id: "zurich-city", name: "Zürich (city)", canton: "Zürich", x: 59, y: 30, valuePerSqm: 23350, sourced: true },
+  { id: "geneva-city", name: "Genève (city)", canton: "Genève", x: 10, y: 82, valuePerSqm: 21640, sourced: true },
+  { id: "lugano", name: "Lugano", canton: "Ticino", x: 58, y: 90, valuePerSqm: 15000, sourced: false },
+  { id: "lucerne", name: "Lucerne", canton: "Luzern", x: 50, y: 41, valuePerSqm: 12500, sourced: false },
+  { id: "bern", name: "Bern", canton: "Bern", x: 36, y: 46, valuePerSqm: 11500, sourced: false },
+  { id: "basel", name: "Basel", canton: "Basel-Stadt", x: 28, y: 9, valuePerSqm: 13000, sourced: false },
 ];
+
+// VisideaX's own physical presence — shown on the map distinctly from the
+// selectable project-location hubs above.
+export interface OfficeMarker {
+  id: string;
+  name: string;
+  x: number;
+  y: number;
+}
+
+export const OFFICES: OfficeMarker[] = [
+  { id: "office-st-moritz", name: "VisideaX — St. Moritz", x: 76, y: 62 },
+  { id: "office-zurich", name: "VisideaX — Zürich", x: 59, y: 30 },
+];
+
+export type ProjectCategory = "real-estate" | "event" | "value-based";
 
 export type ProjectType =
   | "new-development"
   | "acquisition-reposition"
   | "hospitality"
-  | "private-club";
+  | "private-club"
+  | "signature-event"
+  | "joint-venture"
+  | "exit-succession";
 
-export const PROJECT_TYPES: { value: ProjectType; label: string }[] = [
-  { value: "new-development", label: "New Development / Ground-Up" },
-  { value: "acquisition-reposition", label: "Acquisition & Reposition" },
-  { value: "hospitality", label: "Hospitality (Hotel / Branded Residences)" },
-  { value: "private-club", label: "Private Club / Membership Concept" },
+export const PROJECT_TYPES: { value: ProjectType; label: string; category: ProjectCategory }[] = [
+  { value: "new-development", label: "New Development / Ground-Up", category: "real-estate" },
+  { value: "acquisition-reposition", label: "Acquisition & Reposition", category: "real-estate" },
+  { value: "hospitality", label: "Hospitality (Hotel / Branded Residences)", category: "real-estate" },
+  { value: "private-club", label: "Private Club / Membership Concept", category: "real-estate" },
+  { value: "signature-event", label: "Signature Event / Cultural Partnership (e.g. THE ICE)", category: "event" },
+  { value: "joint-venture", label: "Joint Venture / Territorial Partnership", category: "value-based" },
+  { value: "exit-succession", label: "Exit & Succession", category: "value-based" },
 ];
 
-const COST_RATIO: Record<ProjectType, number> = {
+export function categoryOf(t: ProjectType): ProjectCategory {
+  return PROJECT_TYPES.find((p) => p.value === t)?.category ?? "real-estate";
+}
+
+const COST_RATIO: Partial<Record<ProjectType, number>> = {
   "new-development": 0.55,
   "acquisition-reposition": 0.75,
   hospitality: 0.7,
@@ -52,18 +78,26 @@ export interface FeasibilityInput {
   hubId: string | null;
   customLocation: string;
   sizeSqm: number;
-  keysOrUnits: number; // used for hospitality (keys) and private club (member capacity)
-  membershipFee: number; // CHF/year, only used for private-club
+  keysOrUnits: number; // hospitality keys, or private-club member capacity
+  membershipFee: number; // CHF/year, private-club only
+  dealValue: number; // CHF, joint-venture / exit-succession only
+  eventAttendees: number; // signature-event only
+  eventBudget: number; // CHF, signature-event only
+  sponsorCount: number; // signature-event only
+  avgSponsorshipFee: number; // CHF, signature-event only
 }
 
 export interface FeasibilityResult {
-  valuePerSqm: number;
-  costPerSqm: number;
-  estimatedCost: number;
-  grossAssetValue: number | null; // sale-oriented types
+  category: ProjectCategory;
+  valuePerSqm: number | null;
+  costPerSqm: number | null;
+  estimatedCost: number | null;
+  grossAssetValue: number | null; // sale-oriented real-estate types
   estimatedMargin: number | null;
-  annualRevenue: number | null; // operating types
+  annualRevenue: number | null; // operating real-estate types
   estimatedAdr: number | null;
+  sponsorshipRevenue: number | null; // signature-event
+  dealValue: number | null; // value-based types
   advisoryFeeSuccess: number;
   advisoryFeeRetainer: number;
   advisoryFeeTotal: number;
@@ -78,15 +112,62 @@ const DEFAULT_OCCUPANCY = 0.7;
 const SQM_PER_KEY = 90;
 // Planning assumption: average sqm of clubhouse/facility space per member.
 const SQM_PER_MEMBER = 12;
+const DEFAULT_SPONSORSHIP_FEE = 60000;
 
 export function findHub(hubId: string | null): Hub | null {
   return HUBS.find((h) => h.id === hubId) ?? null;
 }
 
 export function computeFeasibility(input: FeasibilityInput, fallbackValuePerSqm: number): FeasibilityResult {
+  const category = categoryOf(input.projectType);
+  const advisoryFor = (dealSize: number) => ({
+    advisoryFeeSuccess: dealSize * BASE_SUCCESS_FEE_PCT,
+    advisoryFeeRetainer: BASE_MONTHLY_RETAINER * BASE_DURATION_MONTHS,
+    advisoryFeeTotal: dealSize * BASE_SUCCESS_FEE_PCT + BASE_MONTHLY_RETAINER * BASE_DURATION_MONTHS,
+  });
+
+  if (category === "value-based") {
+    const dealValue = Math.max(input.dealValue, 0);
+    return {
+      category,
+      valuePerSqm: null,
+      costPerSqm: null,
+      estimatedCost: null,
+      grossAssetValue: null,
+      estimatedMargin: null,
+      annualRevenue: null,
+      estimatedAdr: null,
+      sponsorshipRevenue: null,
+      dealValue,
+      ...advisoryFor(dealValue),
+    };
+  }
+
+  if (category === "event") {
+    const sponsors = Math.max(input.sponsorCount, 0);
+    const fee = input.avgSponsorshipFee > 0 ? input.avgSponsorshipFee : DEFAULT_SPONSORSHIP_FEE;
+    const sponsorshipRevenue = sponsors * fee;
+    const estimatedCost = Math.max(input.eventBudget, 0);
+    const dealSize = Math.max(sponsorshipRevenue, estimatedCost);
+    return {
+      category,
+      valuePerSqm: null,
+      costPerSqm: null,
+      estimatedCost,
+      grossAssetValue: null,
+      estimatedMargin: null,
+      annualRevenue: null,
+      estimatedAdr: null,
+      sponsorshipRevenue,
+      dealValue: null,
+      ...advisoryFor(dealSize),
+    };
+  }
+
+  // real-estate category
   const hub = findHub(input.hubId);
   const valuePerSqm = hub?.valuePerSqm ?? fallbackValuePerSqm;
-  const costRatio = COST_RATIO[input.projectType];
+  const costRatio = COST_RATIO[input.projectType] ?? 0.6;
   const costPerSqm = valuePerSqm * costRatio;
 
   let size = Math.max(input.sizeSqm, 0);
@@ -119,11 +200,8 @@ export function computeFeasibility(input: FeasibilityInput, fallbackValuePerSqm:
     dealSize = Math.max(estimatedCost, annualRevenue * 3);
   }
 
-  const advisoryFeeSuccess = dealSize * BASE_SUCCESS_FEE_PCT;
-  const advisoryFeeRetainer = BASE_MONTHLY_RETAINER * BASE_DURATION_MONTHS;
-  const advisoryFeeTotal = advisoryFeeSuccess + advisoryFeeRetainer;
-
   return {
+    category,
     valuePerSqm,
     costPerSqm,
     estimatedCost,
@@ -131,9 +209,9 @@ export function computeFeasibility(input: FeasibilityInput, fallbackValuePerSqm:
     estimatedMargin,
     annualRevenue,
     estimatedAdr,
-    advisoryFeeSuccess,
-    advisoryFeeRetainer,
-    advisoryFeeTotal,
+    sponsorshipRevenue: null,
+    dealValue: null,
+    ...advisoryFor(dealSize),
   };
 }
 

@@ -7,12 +7,13 @@ import { LogOut, ArrowRight, Download, RotateCcw } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { SwissMap } from "@/components/SwissMap";
 import {
   PROJECT_TYPES,
-  HUBS,
   findHub,
+  categoryOf,
   computeFeasibility,
   fmtChf,
   type ProjectType,
@@ -24,6 +25,8 @@ const DEFAULT_CUSTOM_VALUE_PER_SQM = 12000;
 export default function ToolPage() {
   const router = useRouter();
 
+  const [presentation, setPresentation] = React.useState("");
+  const [consent, setConsent] = React.useState(false);
   const [description, setDescription] = React.useState("");
   const [projectType, setProjectType] = React.useState<ProjectType>("new-development");
   const [hubId, setHubId] = React.useState<string | null>(null);
@@ -31,6 +34,11 @@ export default function ToolPage() {
   const [sizeSqm, setSizeSqm] = React.useState("");
   const [keysOrUnits, setKeysOrUnits] = React.useState("");
   const [membershipFee, setMembershipFee] = React.useState("");
+  const [dealValue, setDealValue] = React.useState("");
+  const [eventAttendees, setEventAttendees] = React.useState("");
+  const [eventBudget, setEventBudget] = React.useState("");
+  const [sponsorCount, setSponsorCount] = React.useState("");
+  const [avgSponsorshipFee, setAvgSponsorshipFee] = React.useState("");
   const [contactName, setContactName] = React.useState("");
   const [contactEmail, setContactEmail] = React.useState("");
   const [contactEntity, setContactEntity] = React.useState("");
@@ -40,6 +48,10 @@ export default function ToolPage() {
   const [downloading, setDownloading] = React.useState(false);
   const [downloadError, setDownloadError] = React.useState<string | null>(null);
 
+  const category = categoryOf(projectType);
+  const isRealEstate = category === "real-estate";
+  const isEvent = category === "event";
+  const isValueBased = category === "value-based";
   const needsSize = projectType === "new-development" || projectType === "acquisition-reposition";
   const needsKeys = projectType === "hospitality";
   const needsMembers = projectType === "private-club";
@@ -51,19 +63,36 @@ export default function ToolPage() {
 
   const validate = () => {
     const e: Record<string, string> = {};
+    if (presentation.trim().length < 20) {
+      e.presentation = "Please tell us a little about yourself and your background.";
+    }
+    if (!consent) {
+      e.consent = "Please confirm you consent to sharing this information with VisideaX.";
+    }
     if (description.trim().length < 30) {
       e.description = "Please describe the project in more detail (at least a few sentences).";
     }
-    if (!hubId && customLocation.trim().length < 2) {
+    if (isRealEstate && !hubId && customLocation.trim().length < 2) {
       e.location = "Select a location on the map, or type one below.";
     }
-    if ((needsSize || projectType === "private-club") && (!sizeSqm || Number(sizeSqm) <= 0)) {
+    if (isRealEstate && (needsSize || projectType === "private-club") && (!sizeSqm || Number(sizeSqm) <= 0)) {
       e.sizeSqm = "Please enter an approximate size in sqm.";
     }
-    if ((needsKeys || needsMembers) && (!keysOrUnits || Number(keysOrUnits) <= 0)) {
+    if (isRealEstate && (needsKeys || needsMembers) && (!keysOrUnits || Number(keysOrUnits) <= 0)) {
       e.keysOrUnits = needsKeys
         ? "Please enter the approximate number of keys."
         : "Please enter the approximate target membership capacity.";
+    }
+    if (isValueBased && (!dealValue || Number(dealValue) <= 0)) {
+      e.dealValue = "Please enter an approximate partnership or transaction value.";
+    }
+    if (isEvent) {
+      if (!eventAttendees || Number(eventAttendees) <= 0) {
+        e.eventAttendees = "Please enter the approximate number of attendees.";
+      }
+      if (!sponsorCount || Number(sponsorCount) <= 0) {
+        e.sponsorCount = "Please enter the target number of sponsors or partners.";
+      }
     }
     if (!contactName.trim()) e.contactName = "Please enter your full name.";
     if (!contactEmail.trim() || !contactEmail.includes("@")) e.contactEmail = "Please enter a valid email.";
@@ -71,21 +100,24 @@ export default function ToolPage() {
     return Object.keys(e).length === 0;
   };
 
+  const buildInput = () => ({
+    projectType,
+    hubId,
+    customLocation,
+    sizeSqm: Number(sizeSqm) || 0,
+    keysOrUnits: Number(keysOrUnits) || 0,
+    membershipFee: Number(membershipFee) || 0,
+    dealValue: Number(dealValue) || 0,
+    eventAttendees: Number(eventAttendees) || 0,
+    eventBudget: Number(eventBudget) || 0,
+    sponsorCount: Number(sponsorCount) || 0,
+    avgSponsorshipFee: Number(avgSponsorshipFee) || 0,
+  });
+
   const onCalculate = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    const r = computeFeasibility(
-      {
-        projectType,
-        hubId,
-        customLocation,
-        sizeSqm: Number(sizeSqm) || 0,
-        keysOrUnits: Number(keysOrUnits) || 0,
-        membershipFee: Number(membershipFee) || 0,
-      },
-      DEFAULT_CUSTOM_VALUE_PER_SQM
-    );
-    setResult(r);
+    setResult(computeFeasibility(buildInput(), DEFAULT_CUSTOM_VALUE_PER_SQM));
   };
 
   const onDownload = async () => {
@@ -97,12 +129,11 @@ export default function ToolPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          presentation,
           description,
           projectType,
-          location: locationLabel,
-          sizeSqm: Number(sizeSqm) || 0,
-          keysOrUnits: Number(keysOrUnits) || 0,
-          membershipFee: Number(membershipFee) || 0,
+          location: isRealEstate ? locationLabel : "—",
+          eventAttendees: Number(eventAttendees) || 0,
           contactName,
           contactEmail,
           contactEntity,
@@ -135,6 +166,8 @@ export default function ToolPage() {
     setResult(null);
   };
 
+  const typeLabel = PROJECT_TYPES.find((t) => t.value === projectType)?.label;
+
   return (
     <main className="min-h-screen bg-alpine-cream pb-28 pt-32 sm:pt-40">
       <div className="container">
@@ -142,7 +175,7 @@ export default function ToolPage() {
           <div>
             <span className="eyebrow text-alpine-gold">Client Tool</span>
             <h1 className="mt-2 font-display text-2xl text-alpine-slate sm:text-3xl">
-              Real Estate Feasibility Estimator
+              Feasibility &amp; Partnership Estimator
             </h1>
           </div>
           <button
@@ -168,6 +201,33 @@ export default function ToolPage() {
             >
               <div className="space-y-8">
                 <div className="space-y-2">
+                  <Label htmlFor="presentation" className="text-alpine-slate/60">
+                    Tell us about yourself <span className="text-alpine-gold">*</span>
+                  </Label>
+                  <Textarea
+                    id="presentation"
+                    rows={4}
+                    value={presentation}
+                    onChange={(e) => setPresentation(e.target.value)}
+                    placeholder="Who you are, your background, and the entity or family office you represent, if any — so we understand who we're speaking with."
+                  />
+                  {errors.presentation && <p className="text-xs text-red-500">{errors.presentation}</p>}
+                  <div className="flex items-start gap-3 pt-1">
+                    <Checkbox
+                      id="consent"
+                      checked={consent}
+                      onCheckedChange={(checked) => setConsent(checked === true)}
+                      className="mt-0.5 border-alpine-slate/30 data-[state=checked]:bg-alpine-gold data-[state=checked]:border-alpine-gold"
+                    />
+                    <Label htmlFor="consent" className="text-xs font-normal normal-case tracking-normal leading-relaxed text-alpine-slate/60">
+                      I consent to VisideaX reviewing and retaining the information I share in this
+                      tool in order to respond to my inquiry.
+                    </Label>
+                  </div>
+                  {errors.consent && <p className="text-xs text-red-500">{errors.consent}</p>}
+                </div>
+
+                <div className="space-y-2 border-t border-alpine-slate/10 pt-8">
                   <Label htmlFor="description" className="text-alpine-slate/60">
                     Describe your project in detail <span className="text-alpine-gold">*</span>
                   </Label>
@@ -176,7 +236,7 @@ export default function ToolPage() {
                     rows={6}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="What are you trying to do? The asset, the ambition, the partners you already have or need, the timeline — the more detail, the more useful the estimate."
+                    placeholder="What are you trying to do? The asset or event, the ambition, the partners you already have or need, the timeline — the more detail, the more useful the estimate."
                   />
                   {errors.description && <p className="text-xs text-red-500">{errors.description}</p>}
                 </div>
@@ -199,57 +259,59 @@ export default function ToolPage() {
                   </select>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  {(needsSize || projectType === "private-club") && (
-                    <div className="space-y-2">
-                      <Label htmlFor="sizeSqm" className="text-alpine-slate/60">
-                        Approx. Size (sqm) <span className="text-alpine-gold">*</span>
-                      </Label>
-                      <Input
-                        id="sizeSqm"
-                        type="number"
-                        min={0}
-                        value={sizeSqm}
-                        onChange={(e) => setSizeSqm(e.target.value)}
-                        placeholder="e.g. 1200"
-                      />
-                      {errors.sizeSqm && <p className="text-xs text-red-500">{errors.sizeSqm}</p>}
-                    </div>
-                  )}
-                  {(needsKeys || needsMembers) && (
-                    <div className="space-y-2">
-                      <Label htmlFor="keysOrUnits" className="text-alpine-slate/60">
-                        {needsKeys ? "Approx. Keys" : "Target Members"} <span className="text-alpine-gold">*</span>
-                      </Label>
-                      <Input
-                        id="keysOrUnits"
-                        type="number"
-                        min={0}
-                        value={keysOrUnits}
-                        onChange={(e) => setKeysOrUnits(e.target.value)}
-                        placeholder={needsKeys ? "e.g. 40" : "e.g. 250"}
-                      />
-                      {errors.keysOrUnits && <p className="text-xs text-red-500">{errors.keysOrUnits}</p>}
-                    </div>
-                  )}
-                  {needsMembers && (
-                    <div className="space-y-2">
-                      <Label htmlFor="membershipFee" className="text-alpine-slate/60">
-                        Annual Membership Fee (CHF)
-                      </Label>
-                      <Input
-                        id="membershipFee"
-                        type="number"
-                        min={0}
-                        value={membershipFee}
-                        onChange={(e) => setMembershipFee(e.target.value)}
-                        placeholder="Default: 25,000"
-                      />
-                    </div>
-                  )}
-                </div>
+                {isRealEstate && (
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    {(needsSize || projectType === "private-club") && (
+                      <div className="space-y-2">
+                        <Label htmlFor="sizeSqm" className="text-alpine-slate/60">
+                          Approx. Size (sqm) <span className="text-alpine-gold">*</span>
+                        </Label>
+                        <Input
+                          id="sizeSqm"
+                          type="number"
+                          min={0}
+                          value={sizeSqm}
+                          onChange={(e) => setSizeSqm(e.target.value)}
+                          placeholder="e.g. 1200"
+                        />
+                        {errors.sizeSqm && <p className="text-xs text-red-500">{errors.sizeSqm}</p>}
+                      </div>
+                    )}
+                    {(needsKeys || needsMembers) && (
+                      <div className="space-y-2">
+                        <Label htmlFor="keysOrUnits" className="text-alpine-slate/60">
+                          {needsKeys ? "Approx. Keys" : "Target Members"} <span className="text-alpine-gold">*</span>
+                        </Label>
+                        <Input
+                          id="keysOrUnits"
+                          type="number"
+                          min={0}
+                          value={keysOrUnits}
+                          onChange={(e) => setKeysOrUnits(e.target.value)}
+                          placeholder={needsKeys ? "e.g. 40" : "e.g. 250"}
+                        />
+                        {errors.keysOrUnits && <p className="text-xs text-red-500">{errors.keysOrUnits}</p>}
+                      </div>
+                    )}
+                    {needsMembers && (
+                      <div className="space-y-2">
+                        <Label htmlFor="membershipFee" className="text-alpine-slate/60">
+                          Annual Membership Fee (CHF)
+                        </Label>
+                        <Input
+                          id="membershipFee"
+                          type="number"
+                          min={0}
+                          value={membershipFee}
+                          onChange={(e) => setMembershipFee(e.target.value)}
+                          placeholder="Default: 25,000"
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
 
-                {!hubId && (
+                {isRealEstate && !hubId && (
                   <div className="space-y-2">
                     <Label htmlFor="customLocation" className="text-alpine-slate/60">
                       Or type a specific location
@@ -262,7 +324,83 @@ export default function ToolPage() {
                     />
                   </div>
                 )}
-                {errors.location && <p className="text-xs text-red-500">{errors.location}</p>}
+                {isRealEstate && errors.location && <p className="text-xs text-red-500">{errors.location}</p>}
+
+                {isEvent && (
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="eventAttendees" className="text-alpine-slate/60">
+                        Expected Attendees <span className="text-alpine-gold">*</span>
+                      </Label>
+                      <Input
+                        id="eventAttendees"
+                        type="number"
+                        min={0}
+                        value={eventAttendees}
+                        onChange={(e) => setEventAttendees(e.target.value)}
+                        placeholder="e.g. 2000"
+                      />
+                      {errors.eventAttendees && <p className="text-xs text-red-500">{errors.eventAttendees}</p>}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="eventBudget" className="text-alpine-slate/60">
+                        Estimated Event Budget (CHF)
+                      </Label>
+                      <Input
+                        id="eventBudget"
+                        type="number"
+                        min={0}
+                        value={eventBudget}
+                        onChange={(e) => setEventBudget(e.target.value)}
+                        placeholder="If known"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="sponsorCount" className="text-alpine-slate/60">
+                        Target Number of Sponsors <span className="text-alpine-gold">*</span>
+                      </Label>
+                      <Input
+                        id="sponsorCount"
+                        type="number"
+                        min={0}
+                        value={sponsorCount}
+                        onChange={(e) => setSponsorCount(e.target.value)}
+                        placeholder="e.g. 6"
+                      />
+                      {errors.sponsorCount && <p className="text-xs text-red-500">{errors.sponsorCount}</p>}
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="avgSponsorshipFee" className="text-alpine-slate/60">
+                        Avg. Sponsorship Fee (CHF)
+                      </Label>
+                      <Input
+                        id="avgSponsorshipFee"
+                        type="number"
+                        min={0}
+                        value={avgSponsorshipFee}
+                        onChange={(e) => setAvgSponsorshipFee(e.target.value)}
+                        placeholder="Default: 60,000"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {isValueBased && (
+                  <div className="space-y-2">
+                    <Label htmlFor="dealValue" className="text-alpine-slate/60">
+                      Approx. Partnership / Transaction Value (CHF) <span className="text-alpine-gold">*</span>
+                    </Label>
+                    <Input
+                      id="dealValue"
+                      type="number"
+                      min={0}
+                      value={dealValue}
+                      onChange={(e) => setDealValue(e.target.value)}
+                      placeholder="e.g. 20000000"
+                    />
+                    {errors.dealValue && <p className="text-xs text-red-500">{errors.dealValue}</p>}
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 gap-6 border-t border-alpine-slate/10 pt-8 sm:grid-cols-2">
                   <div className="space-y-2">
@@ -302,7 +440,7 @@ export default function ToolPage() {
 
               <div className="border border-alpine-slate/10 bg-white/60 p-8">
                 <SwissMap selectedHub={hubId} onSelectHub={(id) => { setHubId(id); setCustomLocation(""); }} />
-                {selectedHub && (
+                {isRealEstate && selectedHub && (
                   <p className="mt-4 text-center text-sm text-alpine-slate/60">
                     Selected: <span className="font-semibold text-alpine-slate">{selectedHub.name}, {selectedHub.canton}</span>{" "}
                     <button
@@ -312,6 +450,11 @@ export default function ToolPage() {
                     >
                       Clear
                     </button>
+                  </p>
+                )}
+                {!isRealEstate && (
+                  <p className="mt-4 text-center text-xs text-alpine-slate/45">
+                    Location is optional for this project type — feel free to click a territory for context.
                   </p>
                 )}
               </div>
@@ -328,13 +471,19 @@ export default function ToolPage() {
               <div className="border border-alpine-slate/10 bg-white/60 p-8 sm:p-12">
                 <span className="eyebrow text-alpine-gold">Illustrative Estimate</span>
                 <h2 className="mt-3 font-display text-2xl text-alpine-slate">
-                  {locationLabel} — {PROJECT_TYPES.find((t) => t.value === projectType)?.label}
+                  {isRealEstate ? `${locationLabel} — ${typeLabel}` : typeLabel}
                 </h2>
 
                 <dl className="mt-8 space-y-4">
-                  <Row label="Indicative value / sqm" value={`CHF ${fmtChf(result.valuePerSqm)}`} />
-                  <Row label="Indicative cost / sqm" value={`CHF ${fmtChf(result.costPerSqm)}`} />
-                  <Row label="Estimated Cost" value={`CHF ${fmtChf(result.estimatedCost)}`} bold />
+                  {result.valuePerSqm !== null && (
+                    <Row label="Indicative value / sqm" value={`CHF ${fmtChf(result.valuePerSqm)}`} />
+                  )}
+                  {result.costPerSqm !== null && (
+                    <Row label="Indicative cost / sqm" value={`CHF ${fmtChf(result.costPerSqm)}`} />
+                  )}
+                  {result.estimatedCost !== null && (
+                    <Row label="Estimated Cost" value={`CHF ${fmtChf(result.estimatedCost)}`} bold />
+                  )}
                   {result.grossAssetValue !== null && (
                     <>
                       <Row label="Estimated Gross Asset Value" value={`CHF ${fmtChf(result.grossAssetValue)}`} bold />
@@ -349,6 +498,12 @@ export default function ToolPage() {
                       <Row label="Estimated Annual Revenue" value={`CHF ${fmtChf(result.annualRevenue)}`} highlight />
                     </>
                   )}
+                  {result.sponsorshipRevenue !== null && (
+                    <Row label="Estimated Sponsorship Revenue" value={`CHF ${fmtChf(result.sponsorshipRevenue)}`} highlight />
+                  )}
+                  {result.dealValue !== null && (
+                    <Row label="Partnership / Transaction Value" value={`CHF ${fmtChf(result.dealValue)}`} bold />
+                  )}
                   <div className="border-t border-alpine-slate/10 pt-4">
                     <Row label="Illustrative VisideaX Advisory Fee" value={`CHF ${fmtChf(result.advisoryFeeTotal)}`} bold />
                   </div>
@@ -356,8 +511,8 @@ export default function ToolPage() {
 
                 <p className="mt-8 text-xs leading-relaxed text-alpine-slate/45">
                   These figures are an order-of-magnitude planning estimate generated from indicative
-                  location benchmarks and standard cost ratios — not a valuation, appraisal, or offer.
-                  Real feasibility depends on the specific asset, zoning, permits, and execution.
+                  benchmarks and standard assumptions — not a valuation, appraisal, or offer. Real
+                  feasibility depends on the specific asset or event, permits, partners, and execution.
                 </p>
 
                 {downloadError && <p className="mt-4 text-sm text-red-500">{downloadError}</p>}

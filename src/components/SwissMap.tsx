@@ -1,17 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { HUBS } from "@/lib/feasibility";
-import { cn } from "@/lib/utils";
+import { HUBS, OFFICES } from "@/lib/feasibility";
 
-// A stylized, simplified silhouette of Switzerland — not survey-accurate,
-// but recognizable and correctly proportioned enough to place the hub
-// markers below in roughly the right relative positions.
+// A stylized, simplified silhouette of Switzerland — deliberately faceted
+// rather than survey-accurate, but walked as a single clean clockwise loop
+// (Basel → Lake Constance → Graubünden/Engadin → Ticino tip → Geneva tail →
+// Jura arc → back to Basel) so it renders as one complete, non-overlapping
+// shape at any size.
 const SWITZERLAND_OUTLINE =
-  "M 30,4 L 45,2 L 58,8 L 70,6 L 84,14 L 92,22 L 96,32 L 90,40 L 94,48 " +
-  "L 88,56 L 92,64 L 82,72 L 84,82 L 72,90 L 62,96 L 50,94 L 44,86 " +
-  "L 32,88 L 20,84 L 8,88 L 2,78 L 10,68 L 4,58 L 12,48 L 6,38 " +
-  "L 14,28 L 10,18 L 20,10 Z";
+  "M 25,8 L 48,3 L 72,10 L 88,22 L 95,38 L 90,55 L 82,62 " +
+  "L 72,78 L 60,95 L 48,86 L 34,82 L 22,88 L 4,90 " +
+  "L 10,68 L 6,48 L 2,28 L 14,12 Z";
 
 interface SwissMapProps {
   selectedHub: string | null;
@@ -23,13 +23,41 @@ export function SwissMap({ selectedHub, onSelectHub }: SwissMapProps) {
 
   return (
     <div className="relative w-full">
-      <svg viewBox="0 0 100 100" className="w-full" style={{ aspectRatio: "1 / 1" }}>
+      <svg viewBox="-4 -4 108 108" className="w-full overflow-visible" style={{ aspectRatio: "1 / 1" }}>
         <path
           d={SWITZERLAND_OUTLINE}
           fill="#F4F9FC"
           stroke="#B8C4D0"
-          strokeWidth={0.6}
+          strokeWidth={0.7}
+          strokeLinejoin="round"
         />
+
+        {OFFICES.map((office) => (
+          <g key={office.id} className="pointer-events-none">
+            <rect
+              x={office.x - 2.2}
+              y={office.y - 2.2}
+              width={4.4}
+              height={4.4}
+              transform={`rotate(45 ${office.x} ${office.y})`}
+              fill="#0B2E4E"
+              stroke="#38B6FF"
+              strokeWidth={0.6}
+            />
+            <text
+              x={office.x}
+              y={office.y + 7.5}
+              textAnchor="middle"
+              fontSize={2.9}
+              fontWeight={700}
+              fill="#0B2E4E"
+              className="select-none"
+            >
+              {office.name}
+            </text>
+          </g>
+        ))}
+
         {HUBS.map((hub) => {
           const isActive = selectedHub === hub.id;
           const isHovered = hovered === hub.id;
@@ -72,9 +100,15 @@ export function SwissMap({ selectedHub, onSelectHub }: SwissMapProps) {
           );
         })}
       </svg>
-      <p className="mt-4 text-center text-[0.65rem] font-medium uppercase tracking-[0.15em] text-alpine-slate/35">
-        Switzerland — available now · more territories coming
-      </p>
+      <div className="mt-4 flex flex-col items-center gap-2 text-center">
+        <p className="text-[0.65rem] font-medium uppercase tracking-[0.15em] text-alpine-slate/35">
+          Switzerland — available now · more territories coming
+        </p>
+        <p className="flex items-center gap-1.5 text-[0.65rem] font-medium text-alpine-slate/45">
+          <span className="inline-block h-2 w-2 rotate-45 bg-alpine-slate" />
+          VisideaX offices — St. Moritz &amp; Zürich
+        </p>
+      </div>
     </div>
   );
 }
