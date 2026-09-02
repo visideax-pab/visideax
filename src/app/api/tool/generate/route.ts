@@ -4,6 +4,8 @@ import fs from "fs/promises";
 import path from "path";
 import { PROJECT_TYPES, fmtChf, type ProjectType, type FeasibilityResult } from "@/lib/feasibility";
 
+const WEB3FORMS_ACCESS_KEY = "e667efc9-bc88-4b01-b39a-3d6fa43ae448";
+
 const NAVY = rgb(0x0b / 255, 0x2e / 255, 0x4e / 255);
 const BLUE = rgb(0x38 / 255, 0xb6 / 255, 0xff / 255);
 const MUTED = rgb(0x4a / 255, 0x5c / 255, 0x6b / 255);
@@ -39,8 +41,45 @@ function wrapText(text: string, font: any, size: number, maxWidth: number): stri
   return lines;
 }
 
+async function notifyVisideaX(body: GenerateBody) {
+  const typeLabel = PROJECT_TYPES.find((t) => t.value === body.projectType)?.label ?? body.projectType;
+  const r = body.result;
+  const estimateLines = [
+    r.estimatedCost !== null ? `Estimated Cost: CHF ${fmtChf(r.estimatedCost)}` : null,
+    r.grossAssetValue !== null ? `Estimated Gross Asset Value: CHF ${fmtChf(r.grossAssetValue)}` : null,
+    r.annualRevenue !== null ? `Estimated Annual Revenue: CHF ${fmtChf(r.annualRevenue)}` : null,
+    r.sponsorshipRevenue !== null ? `Estimated Sponsorship Revenue: CHF ${fmtChf(r.sponsorshipRevenue)}` : null,
+    r.dealValue !== null ? `Partnership / Transaction Value: CHF ${fmtChf(r.dealValue)}` : null,
+    `Illustrative Advisory Fee: CHF ${fmtChf(r.advisoryFeeTotal)}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  try {
+    await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `New feasibility tool submission — ${body.contactName || "Unknown"}`,
+        "Full Name": body.contactName,
+        "Entity / Family Office": body.contactEntity || "—",
+        email: body.contactEmail,
+        "Project Type": typeLabel,
+        Location: body.location,
+        "About the Client": body.presentation,
+        "Project Description": body.description,
+        "Illustrative Estimate": estimateLines,
+      }),
+    });
+  } catch {
+    // Do not block the client's PDF download if the notification fails.
+  }
+}
+
 export async function POST(req: NextRequest) {
   const body = (await req.json()) as GenerateBody;
+  await notifyVisideaX(body);
 
   const pdfDoc = await PDFDocument.create();
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
