@@ -4,9 +4,9 @@ import { team } from "@/lib/data";
 import { TeamGrid } from "@/components/TeamGrid";
 
 export const metadata: Metadata = {
-  title: "Team | VisideaX",
+  title: "Founding Team | VisideaX",
   description:
-    "The founding partners and senior team behind VisideaX — a private Swiss boutique advisory operating across St. Moritz, Zürich, and London.",
+    "The three founding partners behind VisideaX — a private Swiss boutique advisory being built across St. Moritz, Zürich, and London.",
 };
 
 export default function TeamPage() {
@@ -25,12 +25,12 @@ export default function TeamPage() {
         <div className="container relative flex flex-col items-center text-center">
           <span className="eyebrow text-alpine-gold">Governance &amp; Leadership</span>
           <h1 className="mt-4 max-w-2xl text-balance font-display text-3xl font-medium text-alpine-cream sm:text-5xl">
-            The Team Behind Every Mandate
+            The Founding Team
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/65">
-            A small, senior team spanning origination, structuring, and
-            regulatory affairs across St. Moritz, Zürich, and London. Click
-            any profile to read more.
+            Three founding partners spanning origination, operational
+            governance, and M&amp;A structuring — across St. Moritz and
+            Zürich. Click any profile to read more.
           </p>
         </div>
       </section>
