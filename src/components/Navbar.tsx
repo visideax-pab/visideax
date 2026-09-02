@@ -33,12 +33,12 @@ export function Navbar() {
           : "bg-transparent py-6"
       )}
     >
-      <div className="container flex items-center justify-between">
-        <a href="/#top" className="flex items-center group">
+      <div className="container flex items-center justify-between lg:grid lg:grid-cols-3">
+        <a href="/#top" className="flex items-center group lg:justify-self-start">
           <img src="/logo-mark-light.svg" alt="VisideaX" className="h-7 w-auto sm:h-8" />
         </a>
 
-        <nav className="hidden lg:flex items-center gap-9">
+        <nav className="hidden lg:flex lg:items-center lg:justify-self-center lg:gap-9">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -51,7 +51,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden lg:block lg:justify-self-end">
           <Button variant="gold" size="sm" asChild>
             <a href="/#contact">Request Mandate</a>
           </Button>

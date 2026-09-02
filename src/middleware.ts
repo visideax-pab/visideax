@@ -26,5 +26,9 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: "/((?!_next/static|_next/image).*)",
+  // Favicon/icon and standard crawler files stay public so browsers and
+  // search engines can always fetch the site icon and metadata, even while
+  // the rest of the site is password-locked.
+  matcher:
+    "/((?!_next/static|_next/image|icon\\.svg|favicon\\.ico|robots\\.txt|sitemap\\.xml|logo|images).*)",
 };
