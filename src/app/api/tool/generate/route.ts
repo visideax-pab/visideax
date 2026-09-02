@@ -2,9 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import fs from "fs/promises";
 import path from "path";
-import { PROJECT_TYPES, fmtChf, type ProjectType, type FeasibilityResult } from "@/lib/feasibility";
-
-const WEB3FORMS_ACCESS_KEY = "e667efc9-bc88-4b01-b39a-3d6fa43ae448";
+import {
+  PROJECT_TYPES,
+  PROCEED_OPTIONS,
+  PROCEED_NEXT_STEP,
+  EXCLUSIVITY_OPTIONS,
+  DECISION_TIMELINE_OPTIONS,
+  fmtChf,
+  type ProjectType,
+  type FeasibilityResult,
+  type ProceedOption,
+  type ExclusivityLevel,
+  type DecisionTimeline,
+} from "@/lib/feasibility";
 
 const NAVY = rgb(0x0b / 255, 0x2e / 255, 0x4e / 255);
 const BLUE = rgb(0x38 / 255, 0xb6 / 255, 0xff / 255);
@@ -18,6 +28,12 @@ interface GenerateBody {
   projectType: ProjectType;
   location: string;
   eventAttendees: number;
+  targetAudience: string;
+  exclusivityLevel: ExclusivityLevel | null;
+  timeline: string;
+  existingPartners: string;
+  proceedPreference: ProceedOption | "";
+  decisionTimeline: DecisionTimeline | "";
   contactName: string;
   contactEmail: string;
   contactEntity: string;
@@ -41,45 +57,8 @@ function wrapText(text: string, font: any, size: number, maxWidth: number): stri
   return lines;
 }
 
-async function notifyVisideaX(body: GenerateBody) {
-  const typeLabel = PROJECT_TYPES.find((t) => t.value === body.projectType)?.label ?? body.projectType;
-  const r = body.result;
-  const estimateLines = [
-    r.estimatedCost !== null ? `Estimated Cost: CHF ${fmtChf(r.estimatedCost)}` : null,
-    r.grossAssetValue !== null ? `Estimated Gross Asset Value: CHF ${fmtChf(r.grossAssetValue)}` : null,
-    r.annualRevenue !== null ? `Estimated Annual Revenue: CHF ${fmtChf(r.annualRevenue)}` : null,
-    r.sponsorshipRevenue !== null ? `Estimated Sponsorship Revenue: CHF ${fmtChf(r.sponsorshipRevenue)}` : null,
-    r.dealValue !== null ? `Partnership / Transaction Value: CHF ${fmtChf(r.dealValue)}` : null,
-    `Illustrative Advisory Fee: CHF ${fmtChf(r.advisoryFeeTotal)}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  try {
-    await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `New feasibility tool submission — ${body.contactName || "Unknown"}`,
-        "Full Name": body.contactName,
-        "Entity / Family Office": body.contactEntity || "—",
-        email: body.contactEmail,
-        "Project Type": typeLabel,
-        Location: body.location,
-        "About the Client": body.presentation,
-        "Project Description": body.description,
-        "Illustrative Estimate": estimateLines,
-      }),
-    });
-  } catch {
-    // Do not block the client's PDF download if the notification fails.
-  }
-}
-
 export async function POST(req: NextRequest) {
   const body = (await req.json()) as GenerateBody;
-  await notifyVisideaX(body);
 
   const pdfDoc = await PDFDocument.create();
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -184,7 +163,15 @@ export async function POST(req: NextRequest) {
   const r = body.result;
   label(`Project type: ${typeLabel}`);
   if (r.category === "real-estate") label(`Location: ${body.location || "—"}`);
-  if (r.category === "event" && body.eventAttendees > 0) label(`Expected attendees: ${fmtChf(body.eventAttendees)}`);
+  if (r.category === "event") {
+    if (body.eventAttendees > 0) label(`Expected attendees: ${fmtChf(body.eventAttendees)}`);
+    if (body.targetAudience) label(`Target audience / guest profile: ${body.targetAudience}`);
+    if (body.exclusivityLevel) {
+      label(`Exclusivity level: ${EXCLUSIVITY_OPTIONS.find((o) => o.value === body.exclusivityLevel)?.label ?? body.exclusivityLevel}`);
+    }
+  }
+  if (body.timeline) label(`Preferred timeline: ${body.timeline}`);
+  if (body.existingPartners) label(`Existing partners / capital already secured: ${body.existingPartners}`);
   y -= 6;
   bodyText(body.description || "No description provided.");
 
@@ -203,6 +190,23 @@ export async function POST(req: NextRequest) {
   if (r.sponsorshipRevenue !== null) row("Estimated Sponsorship Revenue", `CHF ${fmtChf(r.sponsorshipRevenue)}`, true);
   if (r.dealValue !== null) row("Partnership / Transaction Value", `CHF ${fmtChf(r.dealValue)}`, true);
   row("Illustrative VisideaX Advisory Fee", `CHF ${fmtChf(r.advisoryFeeTotal)}`, true);
+
+  if (body.proceedPreference || body.decisionTimeline) {
+    y -= 14;
+    heading("Next Steps");
+    if (body.proceedPreference) {
+      label(`Preferred next step: ${PROCEED_OPTIONS.find((o) => o.value === body.proceedPreference)?.label ?? "—"}`);
+    }
+    if (body.decisionTimeline) {
+      label(
+        `Decision-making timeline: ${DECISION_TIMELINE_OPTIONS.find((o) => o.value === body.decisionTimeline)?.label ?? "—"}`
+      );
+    }
+    y -= 6;
+    if (body.proceedPreference) {
+      bodyText(PROCEED_NEXT_STEP[body.proceedPreference]);
+    }
+  }
 
   y -= 14;
   heading("Important Notice");

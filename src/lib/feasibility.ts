@@ -66,6 +66,43 @@ export function categoryOf(t: ProjectType): ProjectCategory {
   return PROJECT_TYPES.find((p) => p.value === t)?.category ?? "real-estate";
 }
 
+export type ProceedOption = "call" | "proposal" | "meeting" | "information";
+
+export const PROCEED_OPTIONS: { value: ProceedOption; label: string }[] = [
+  { value: "call", label: "Schedule a confidential introductory call" },
+  { value: "proposal", label: "Receive a detailed written proposal" },
+  { value: "meeting", label: "Arrange an in-person meeting in St. Moritz or Zürich" },
+  { value: "information", label: "Not ready yet — just keep me informed" },
+];
+
+export const PROCEED_NEXT_STEP: Record<ProceedOption, string> = {
+  call:
+    "A member of the VisideaX founding team will reach out directly within two business days to schedule a confidential introductory call.",
+  proposal:
+    "VisideaX will prepare a more detailed written proposal based on this submission and share it directly, under confidentiality.",
+  meeting:
+    "VisideaX will coordinate a confidential in-person meeting in St. Moritz or Zürich, subject to mutual availability.",
+  information:
+    "No immediate action will be taken. VisideaX will keep this submission on file and may follow up periodically with relevant updates.",
+};
+
+export type ExclusivityLevel = "private" | "ticketed" | "hybrid";
+
+export const EXCLUSIVITY_OPTIONS: { value: ExclusivityLevel; label: string }[] = [
+  { value: "private", label: "Private & invite-only" },
+  { value: "ticketed", label: "Ticketed to the public" },
+  { value: "hybrid", label: "Hybrid — private preview + public access" },
+];
+
+export type DecisionTimeline = "immediate" | "short-term" | "medium-term" | "exploring";
+
+export const DECISION_TIMELINE_OPTIONS: { value: DecisionTimeline; label: string }[] = [
+  { value: "immediate", label: "Ready to move forward immediately" },
+  { value: "short-term", label: "Within the next 1–3 months" },
+  { value: "medium-term", label: "3–12 months" },
+  { value: "exploring", label: "No fixed timeline — exploring for now" },
+];
+
 const COST_RATIO: Partial<Record<ProjectType, number>> = {
   "new-development": 0.55,
   "acquisition-reposition": 0.75,

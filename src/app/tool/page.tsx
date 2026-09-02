@@ -12,15 +12,22 @@ import { Button } from "@/components/ui/button";
 import { SwissMap } from "@/components/SwissMap";
 import {
   PROJECT_TYPES,
+  PROCEED_OPTIONS,
+  EXCLUSIVITY_OPTIONS,
+  DECISION_TIMELINE_OPTIONS,
   findHub,
   categoryOf,
   computeFeasibility,
   fmtChf,
   type ProjectType,
   type FeasibilityResult,
+  type ProceedOption,
+  type ExclusivityLevel,
+  type DecisionTimeline,
 } from "@/lib/feasibility";
 
 const DEFAULT_CUSTOM_VALUE_PER_SQM = 12000;
+const WEB3FORMS_ACCESS_KEY = "e667efc9-bc88-4b01-b39a-3d6fa43ae448";
 
 export default function ToolPage() {
   const router = useRouter();
@@ -39,6 +46,13 @@ export default function ToolPage() {
   const [eventBudget, setEventBudget] = React.useState("");
   const [sponsorCount, setSponsorCount] = React.useState("");
   const [avgSponsorshipFee, setAvgSponsorshipFee] = React.useState("");
+  const [timeline, setTimeline] = React.useState("");
+  const [existingPartners, setExistingPartners] = React.useState("");
+  const [targetAudience, setTargetAudience] = React.useState("");
+  const [exclusivityLevel, setExclusivityLevel] = React.useState<ExclusivityLevel | "">("");
+  const [proceedPreference, setProceedPreference] = React.useState<ProceedOption | "">("");
+  const [decisionTimeline, setDecisionTimeline] = React.useState<DecisionTimeline | "">("");
+  const [proceedErrors, setProceedErrors] = React.useState<Record<string, string>>({});
   const [contactName, setContactName] = React.useState("");
   const [contactEmail, setContactEmail] = React.useState("");
   const [contactEntity, setContactEntity] = React.useState("");
@@ -93,6 +107,12 @@ export default function ToolPage() {
       if (!sponsorCount || Number(sponsorCount) <= 0) {
         e.sponsorCount = "Please enter the target number of sponsors or partners.";
       }
+      if (!targetAudience.trim()) {
+        e.targetAudience = "Please describe the target audience or guest profile.";
+      }
+      if (!exclusivityLevel) {
+        e.exclusivityLevel = "Please select an exclusivity level.";
+      }
     }
     if (!contactName.trim()) e.contactName = "Please enter your full name.";
     if (!contactEmail.trim() || !contactEmail.includes("@")) e.contactEmail = "Please enter a valid email.";
@@ -120,11 +140,65 @@ export default function ToolPage() {
     setResult(computeFeasibility(buildInput(), DEFAULT_CUSTOM_VALUE_PER_SQM));
   };
 
+  const validateProceed = () => {
+    const e: Record<string, string> = {};
+    if (!proceedPreference) e.proceedPreference = "Please let us know how you'd like to proceed.";
+    if (!decisionTimeline) e.decisionTimeline = "Please let us know your decision-making timeline.";
+    setProceedErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const notifyVisideaX = async () => {
+    if (!result) return;
+    const typeLabel = PROJECT_TYPES.find((t) => t.value === projectType)?.label ?? projectType;
+    const estimateLines = [
+      result.estimatedCost !== null ? `Estimated Cost: CHF ${fmtChf(result.estimatedCost)}` : null,
+      result.grossAssetValue !== null ? `Estimated Gross Asset Value: CHF ${fmtChf(result.grossAssetValue)}` : null,
+      result.annualRevenue !== null ? `Estimated Annual Revenue: CHF ${fmtChf(result.annualRevenue)}` : null,
+      result.sponsorshipRevenue !== null ? `Estimated Sponsorship Revenue: CHF ${fmtChf(result.sponsorshipRevenue)}` : null,
+      result.dealValue !== null ? `Partnership / Transaction Value: CHF ${fmtChf(result.dealValue)}` : null,
+      `Illustrative Advisory Fee: CHF ${fmtChf(result.advisoryFeeTotal)}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New feasibility tool submission — ${contactName || "Unknown"}`,
+          "Full Name": contactName,
+          "Entity / Family Office": contactEntity || "—",
+          email: contactEmail,
+          "Project Type": typeLabel,
+          Location: isRealEstate ? locationLabel : "—",
+          "About the Client": presentation,
+          "Project Description": description,
+          "Preferred Timeline": timeline || "—",
+          "Existing Partners / Capital": existingPartners || "—",
+          "How They'd Like to Proceed": PROCEED_OPTIONS.find((o) => o.value === proceedPreference)?.label,
+          "Decision-Making Timeline": DECISION_TIMELINE_OPTIONS.find((o) => o.value === decisionTimeline)?.label,
+          "Illustrative Estimate": estimateLines,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!data.success) {
+        console.error("VisideaX notification failed:", data);
+      }
+    } catch (err) {
+      console.error("VisideaX notification failed:", err);
+    }
+  };
+
   const onDownload = async () => {
     if (!result) return;
+    if (!validateProceed()) return;
     setDownloading(true);
     setDownloadError(null);
     try {
+      void notifyVisideaX();
       const res = await fetch("/api/tool/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -134,6 +208,12 @@ export default function ToolPage() {
           projectType,
           location: isRealEstate ? locationLabel : "—",
           eventAttendees: Number(eventAttendees) || 0,
+          targetAudience,
+          exclusivityLevel: exclusivityLevel || null,
+          timeline,
+          existingPartners,
+          proceedPreference,
+          decisionTimeline,
           contactName,
           contactEmail,
           contactEntity,
@@ -382,6 +462,39 @@ export default function ToolPage() {
                         placeholder="Default: 60,000"
                       />
                     </div>
+                    <div className="space-y-2 sm:col-span-2">
+                      <Label htmlFor="targetAudience" className="text-alpine-slate/60">
+                        Target Audience / Guest Profile <span className="text-alpine-gold">*</span>
+                      </Label>
+                      <Input
+                        id="targetAudience"
+                        value={targetAudience}
+                        onChange={(e) => setTargetAudience(e.target.value)}
+                        placeholder="e.g. International UHNW collectors, press, and select public"
+                      />
+                      {errors.targetAudience && <p className="text-xs text-red-500">{errors.targetAudience}</p>}
+                    </div>
+                    <div className="space-y-2 sm:col-span-2">
+                      <Label htmlFor="exclusivityLevel" className="text-alpine-slate/60">
+                        Exclusivity Level <span className="text-alpine-gold">*</span>
+                      </Label>
+                      <select
+                        id="exclusivityLevel"
+                        value={exclusivityLevel}
+                        onChange={(e) => setExclusivityLevel(e.target.value as ExclusivityLevel)}
+                        className="flex h-11 w-full border border-alpine-slate/15 bg-white px-3 text-sm text-alpine-slate focus:border-alpine-gold focus:outline-none"
+                      >
+                        <option value="" disabled>
+                          Select an option
+                        </option>
+                        {EXCLUSIVITY_OPTIONS.map((o) => (
+                          <option key={o.value} value={o.value}>
+                            {o.label}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.exclusivityLevel && <p className="text-xs text-red-500">{errors.exclusivityLevel}</p>}
+                    </div>
                   </div>
                 )}
 
@@ -401,6 +514,31 @@ export default function ToolPage() {
                     {errors.dealValue && <p className="text-xs text-red-500">{errors.dealValue}</p>}
                   </div>
                 )}
+
+                <div className="grid grid-cols-1 gap-6 border-t border-alpine-slate/10 pt-8 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="timeline" className="text-alpine-slate/60">
+                      Preferred Timeline
+                    </Label>
+                    <Input
+                      id="timeline"
+                      value={timeline}
+                      onChange={(e) => setTimeline(e.target.value)}
+                      placeholder="e.g. Winter 2027–28"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="existingPartners" className="text-alpine-slate/60">
+                      Existing Partners or Capital Already Secured
+                    </Label>
+                    <Input
+                      id="existingPartners"
+                      value={existingPartners}
+                      onChange={(e) => setExistingPartners(e.target.value)}
+                      placeholder="If any — otherwise leave blank"
+                    />
+                  </div>
+                </div>
 
                 <div className="grid grid-cols-1 gap-6 border-t border-alpine-slate/10 pt-8 sm:grid-cols-2">
                   <div className="space-y-2">
@@ -514,6 +652,55 @@ export default function ToolPage() {
                   benchmarks and standard assumptions — not a valuation, appraisal, or offer. Real
                   feasibility depends on the specific asset or event, permits, partners, and execution.
                 </p>
+
+                <div className="mt-10 space-y-6 border-t border-alpine-slate/10 pt-8">
+                  <div className="space-y-2">
+                    <Label htmlFor="proceedPreference" className="text-alpine-slate/60">
+                      How Would You Like to Proceed? <span className="text-alpine-gold">*</span>
+                    </Label>
+                    <select
+                      id="proceedPreference"
+                      value={proceedPreference}
+                      onChange={(e) => setProceedPreference(e.target.value as ProceedOption)}
+                      className="flex h-11 w-full border border-alpine-slate/15 bg-white px-3 text-sm text-alpine-slate focus:border-alpine-gold focus:outline-none"
+                    >
+                      <option value="" disabled>
+                        Select an option
+                      </option>
+                      {PROCEED_OPTIONS.map((o) => (
+                        <option key={o.value} value={o.value}>
+                          {o.label}
+                        </option>
+                      ))}
+                    </select>
+                    {proceedErrors.proceedPreference && (
+                      <p className="text-xs text-red-500">{proceedErrors.proceedPreference}</p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="decisionTimeline" className="text-alpine-slate/60">
+                      What Is Your Decision-Making Timeline? <span className="text-alpine-gold">*</span>
+                    </Label>
+                    <select
+                      id="decisionTimeline"
+                      value={decisionTimeline}
+                      onChange={(e) => setDecisionTimeline(e.target.value as DecisionTimeline)}
+                      className="flex h-11 w-full border border-alpine-slate/15 bg-white px-3 text-sm text-alpine-slate focus:border-alpine-gold focus:outline-none"
+                    >
+                      <option value="" disabled>
+                        Select an option
+                      </option>
+                      {DECISION_TIMELINE_OPTIONS.map((o) => (
+                        <option key={o.value} value={o.value}>
+                          {o.label}
+                        </option>
+                      ))}
+                    </select>
+                    {proceedErrors.decisionTimeline && (
+                      <p className="text-xs text-red-500">{proceedErrors.decisionTimeline}</p>
+                    )}
+                  </div>
+                </div>
 
                 {downloadError && <p className="mt-4 text-sm text-red-500">{downloadError}</p>}
 
