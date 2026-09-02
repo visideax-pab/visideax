@@ -56,7 +56,10 @@ export async function POST(req: NextRequest) {
 
   const drawHeader = () => {
     page.drawRectangle({ x: 0, y: pageH - 70, width: pageW, height: 70, color: NAVY });
-    page.drawText("VisideaX", { x: margin + 38, y: pageH - 46, size: 16, font: fontBold, color: WHITE });
+    const wordmarkSize = 16;
+    const visiWidth = fontBold.widthOfTextAtSize("Visi", wordmarkSize);
+    page.drawText("Visi", { x: margin + 38, y: pageH - 46, size: wordmarkSize, font: fontBold, color: BLUE });
+    page.drawText("deaX", { x: margin + 38 + visiWidth, y: pageH - 46, size: wordmarkSize, font: fontBold, color: WHITE });
     page.drawText("Feasibility & Partnership Estimate — Prepared Confidentially", {
       x: margin + 38,
       y: pageH - 62,

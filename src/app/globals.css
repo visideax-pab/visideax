@@ -79,6 +79,22 @@ body {
   background: linear-gradient(90deg, #38b6ff, transparent);
 }
 
+.wordmark-i {
+  position: relative;
+}
+
+.wordmark-i::before {
+  content: "";
+  position: absolute;
+  top: -0.34em;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.16em;
+  height: 0.16em;
+  border-radius: 9999px;
+  background-color: #38b6ff;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

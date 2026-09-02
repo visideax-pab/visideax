@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Wordmark } from "@/components/Wordmark";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -35,7 +36,7 @@ export function Navbar() {
     >
       <div className="container flex items-center justify-between lg:grid lg:grid-cols-3">
         <a href="/#top" className="flex items-center group lg:justify-self-start">
-          <img src="/logo-mark-light.svg" alt="VisideaX" className="h-7 w-auto sm:h-8" />
+          <Wordmark light className="text-xl sm:text-2xl" />
         </a>
 
         <nav className="hidden lg:flex lg:items-center lg:justify-self-center lg:gap-9">
