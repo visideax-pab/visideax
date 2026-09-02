@@ -1,6 +1,5 @@
 import { MapPin, Mail, Linkedin } from "lucide-react";
 import { footprint } from "@/lib/data";
-import { Wordmark } from "@/components/Wordmark";
 
 export function Footer() {
   return (
@@ -8,7 +7,11 @@ export function Footer() {
       <div className="container">
         <div className="flex flex-col items-start justify-between gap-12 lg:flex-row">
           <div className="max-w-sm">
-            <Wordmark light tagline className="text-2xl" />
+            <img
+              src="/logo-mark-light.svg"
+              alt="VisideaX"
+              className="h-9 w-auto"
+            />
             <p className="mt-5 text-sm leading-relaxed text-alpine-cream/50">
               Partnership Advisory Boutique. Architecting durable alliances
               between capital, luxury brands, and the European territories
