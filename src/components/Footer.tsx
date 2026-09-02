@@ -58,6 +58,9 @@ export function Footer() {
               <a href="/#contact" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Confidential Mandate
               </a>
+              <a href="/tool" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+                Client Feasibility Tool
+              </a>
             </div>
           </div>
 
