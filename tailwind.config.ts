@@ -88,11 +88,16 @@ const config: Config = {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        kenburns: {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.08)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.8s cubic-bezier(0.22,1,0.36,1) forwards",
         "fade-in": "fade-in 1s ease forwards",
         shimmer: "shimmer 3s linear infinite",
+        kenburns: "kenburns 20s ease-in-out infinite alternate",
       },
     },
   },

@@ -15,7 +15,9 @@ const requestSchema = z.object({
   name: z.string().min(2, "Please enter your full name."),
   entity: z.string().min(2, "Please enter your entity or organization."),
   email: z.string().email("Please enter a valid email address."),
-  reason: z.string().optional(),
+  reason: z
+    .string()
+    .min(10, "Please briefly explain why you would like to receive the report."),
 });
 
 type RequestValues = z.infer<typeof requestSchema>;
@@ -153,7 +155,7 @@ export default function AnnualReportPage() {
                 >
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-alpine-slate/60">
-                      Full Name
+                      Full Name <span className="text-alpine-gold">*</span>
                     </Label>
                     <Input id="name" placeholder="Your full name" {...register("name")} />
                     {errors.name && (
@@ -163,7 +165,7 @@ export default function AnnualReportPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="entity" className="text-alpine-slate/60">
-                      Entity / Organization
+                      Entity / Organization <span className="text-alpine-gold">*</span>
                     </Label>
                     <Input
                       id="entity"
@@ -177,7 +179,7 @@ export default function AnnualReportPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-alpine-slate/60">
-                      Email
+                      Email <span className="text-alpine-gold">*</span>
                     </Label>
                     <Input
                       id="email"
@@ -192,13 +194,16 @@ export default function AnnualReportPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="reason" className="text-alpine-slate/60">
-                      Reason for Request (Optional)
+                      Reason for Request <span className="text-alpine-gold">*</span>
                     </Label>
                     <Textarea
                       id="reason"
                       placeholder="Briefly, why you would like to receive the report."
                       {...register("reason")}
                     />
+                    {errors.reason && (
+                      <p className="text-xs text-red-500">{errors.reason.message}</p>
+                    )}
                   </div>
 
                   {submitError && (

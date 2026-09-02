@@ -20,8 +20,7 @@ export function AdvisoryMatrix() {
             <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
             >
               <TiltCard className="border border-alpine-slate/10 bg-white/60 p-8 transition-colors hover:border-alpine-gold/40">

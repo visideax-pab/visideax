@@ -148,7 +148,7 @@ export function Contact() {
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="entityName" className="text-alpine-cream/60">
-                      Entity / Family Office Name
+                      Entity / Family Office Name <span className="text-alpine-gold">*</span>
                     </Label>
                     <Input
                       id="entityName"
@@ -163,7 +163,7 @@ export function Contact() {
 
                   <div className="space-y-2">
                     <Label htmlFor="contactName" className="text-alpine-cream/60">
-                      Full Name
+                      Full Name <span className="text-alpine-gold">*</span>
                     </Label>
                     <Input
                       id="contactName"
@@ -179,7 +179,7 @@ export function Contact() {
 
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-alpine-cream/60">
-                    Email
+                    Email <span className="text-alpine-gold">*</span>
                   </Label>
                   <Input
                     id="email"
@@ -195,7 +195,7 @@ export function Contact() {
 
                 <div className="space-y-2">
                   <Label htmlFor="territory" className="text-alpine-cream/60">
-                    Target Assets / Territory
+                    Target Assets / Territory <span className="text-alpine-gold">*</span>
                   </Label>
                   <Input
                     id="territory"
@@ -210,7 +210,7 @@ export function Contact() {
 
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-alpine-cream/60">
-                    Context
+                    Context <span className="text-alpine-gold">*</span>
                   </Label>
                   <Textarea
                     id="message"

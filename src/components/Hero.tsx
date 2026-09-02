@@ -28,7 +28,7 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className="object-cover animate-kenburns"
       />
       <div
         aria-hidden
@@ -61,7 +61,7 @@ export function Hero() {
           variants={fadeUp}
           className="mb-8 inline-flex items-center gap-3 rounded-full border border-alpine-gold/40 bg-alpine-gold/5 px-5 py-2"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-alpine-gold" />
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-alpine-gold" />
           <span className="eyebrow text-alpine-gold">
             Private Swiss Boutique Advisory
           </span>

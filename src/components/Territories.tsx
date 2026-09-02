@@ -34,8 +34,7 @@ export function Territories() {
             key={territory.name}
             href={territory.href}
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-40px" }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="group relative block h-[280px] overflow-hidden sm:h-[340px]"
           >

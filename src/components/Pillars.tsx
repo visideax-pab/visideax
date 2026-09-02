@@ -35,8 +35,7 @@ export function Pillars() {
               <motion.div
                 key={pillar.id}
                 initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               >
                 <TiltCard className="group border border-alpine-cream/10 bg-alpine-navy/50 p-9 transition-colors hover:border-alpine-gold/40">
