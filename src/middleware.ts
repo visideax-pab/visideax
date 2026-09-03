@@ -48,5 +48,5 @@ export const config = {
   // search engines can always fetch the site icon and metadata, even while
   // the rest of the site is password-locked.
   matcher:
-    "/((?!_next/static|_next/image|icon\\.svg|favicon\\.ico|robots\\.txt|sitemap\\.xml|logo|images).*)",
+    "/((?!_next/static|_next/image|icon\\.(?:svg|png|ico)|apple-icon\\.png|favicon\\.ico|robots\\.txt|sitemap\\.xml|logo|images).*)",
 };
