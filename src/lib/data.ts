@@ -128,4 +128,16 @@ export const team = [
     photo: "/team/francesco-rocca.jpg",
     linkedin: "https://www.linkedin.com/in/francesco-rocca-25041b365/",
   },
+  {
+    name: "Lucas Bauman",
+    role: "Co-Founder",
+    location: "London",
+    bio: "Co-Founder of VisideaX and a student at the London School of Economics, with experience at KKR bringing a private-equity and institutional-investing lens to the firm's deal structuring.",
+  },
+  {
+    name: "Alex Natvil",
+    role: "Co-Founder",
+    location: "London",
+    bio: "Co-Founder of VisideaX and a student at King's College London.",
+  },
 ];
