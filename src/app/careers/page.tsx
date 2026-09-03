@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
-import { GraduationCap, Users, Award } from "lucide-react";
+import { GraduationCap, FileText, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Careers | VisideaX",
+  title: "Collaborate | VisideaX",
   description:
-    "VisideaX does not maintain open professional positions — senior relationships are built by direct introduction. Our internship programme is the firm's only structured entry point.",
+    "VisideaX is a young, student-led consulting practice. We don't post fixed job openings — applications from high-level students who want to collaborate with us are always open.",
 };
 
-const internshipTypes = [
-  "Work Experience placements",
-  "Summer Internship programme",
-  "Off-cycle & semester internships",
-  "Thesis / academic-partnership internships",
+const lookingFor = [
+  "Currently enrolled at a leading university",
+  "Strong analytical and financial-modeling ability",
+  "Fluency in English; French, German, or Italian a strong advantage",
+  "Discretion — every collaborator works on live client engagements",
 ];
 
-const requirements = [
-  "Top-tier academic record at a leading university",
-  "Fluency in English; French, German, or Italian a strong advantage",
-  "Genuine interest in Swiss structuring, M&A, or hospitality investment",
-  "Discretion — every intern works on live, confidential mandates",
+const whatYouWorkOn = [
+  "Real business plans, financial models, and partnership presentations",
+  "Direct client deliverables — not a rotation, not busywork",
+  "Close collaboration with the founding team, not a layer of management",
 ];
 
 export default function CareersPage() {
@@ -36,15 +35,15 @@ export default function CareersPage() {
           }}
         />
         <div className="container relative flex flex-col items-center text-center">
-          <span className="eyebrow text-alpine-gold">Careers</span>
+          <span className="eyebrow text-alpine-gold">Collaborate</span>
           <h1 className="mt-4 max-w-2xl text-balance font-display text-3xl font-medium text-alpine-cream sm:text-5xl">
-            We Don&apos;t Hire Through Job Postings
+            Applications Are Always Open
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/65">
-            Senior relationships at VisideaX are built by direct introduction,
-            not by open recruitment — we approach the professionals we want
-            to work with. The one structured exception is our internship
-            programme.
+            VisideaX is a young, student-led team, and we&apos;re always looking to
+            hear from other high-level students who want to work with us.
+            There are no fixed positions or hiring cycles — just an open door
+            for the right people.
           </p>
         </div>
       </section>
@@ -52,15 +51,14 @@ export default function CareersPage() {
       <section className="bg-alpine-cream py-20 sm:py-28">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="eyebrow text-alpine-gold">Internship Programme</span>
+            <span className="eyebrow text-alpine-gold">Rolling Applications</span>
             <h2 className="mt-4 font-display text-2xl text-alpine-slate sm:text-3xl">
-              Our Only Open Door
+              No Job Postings, No Fixed Intake
             </h2>
             <p className="mt-5 text-balance text-base leading-relaxed text-alpine-slate/60">
-              Every professional role at VisideaX is filled by introduction.
-              Internships are the exception — a small number of places each
-              year for candidates who meet a very high bar, across every
-              internship format used in finance.
+              We are not a large firm hiring on a cycle — we are a small, growing
+              group of students who take on real client work. If you think you
+              would add something, reach out. We review every message.
             </p>
           </div>
 
@@ -70,10 +68,10 @@ export default function CareersPage() {
                 <GraduationCap size={22} strokeWidth={1.5} />
               </div>
               <h3 className="mt-6 font-display text-lg text-alpine-slate">
-                Internship Formats
+                Who We&apos;re Looking For
               </h3>
               <ul className="mt-5 space-y-3">
-                {internshipTypes.map((item) => (
+                {lookingFor.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-2.5 text-sm leading-relaxed text-alpine-slate/65"
@@ -87,13 +85,13 @@ export default function CareersPage() {
 
             <div className="border border-alpine-slate/10 bg-white/60 p-9">
               <div className="flex h-12 w-12 items-center justify-center border border-alpine-gold/40 text-alpine-gold">
-                <Award size={22} strokeWidth={1.5} />
+                <FileText size={22} strokeWidth={1.5} />
               </div>
               <h3 className="mt-6 font-display text-lg text-alpine-slate">
-                Entry Requirements
+                What You&apos;ll Work On
               </h3>
               <ul className="mt-5 space-y-3">
-                {requirements.map((item) => (
+                {whatYouWorkOn.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-2.5 text-sm leading-relaxed text-alpine-slate/65"
@@ -110,26 +108,26 @@ export default function CareersPage() {
                 <Users size={22} strokeWidth={1.5} />
               </div>
               <h3 className="mt-6 font-display text-lg text-alpine-slate">
-                What We Provide
+                How It Works
               </h3>
               <p className="mt-5 text-sm leading-relaxed text-alpine-slate/65">
-                Accommodation support for placements based in St. Moritz or
-                Zürich, direct exposure to live mandates, and close mentorship
-                from the founding partners — not a rotation through busywork.
+                No application deadlines and no fixed cohorts. Send a short
+                note and your CV whenever you see this — we reply directly,
+                and the earliest conversations are informal.
               </p>
             </div>
           </div>
 
           <div className="mx-auto mt-16 flex max-w-2xl flex-col items-center gap-6 border border-alpine-slate/10 bg-white/60 px-8 py-12 text-center">
             <h3 className="font-display text-xl text-alpine-slate">
-              Apply for the Internship Programme
+              Get in Touch
             </h3>
             <p className="text-sm leading-relaxed text-alpine-slate/60">
-              Send your CV and a short note on why VisideaX, along with the
-              format and period you are applying for.
+              Send your CV and a short note on why VisideaX — applications are
+              reviewed on a rolling basis, with no fixed deadline.
             </p>
             <Button variant="default" size="lg" asChild>
-              <a href="mailto:visideax@etik.com?subject=Internship%20Application">
+              <a href="mailto:visideax@etik.com?subject=Collaborator%20Application">
                 Apply via Email
               </a>
             </Button>

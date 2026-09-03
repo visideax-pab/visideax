@@ -50,7 +50,7 @@ export function Footer() {
                 Team
               </a>
               <a href="/careers" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
-                Careers
+                Collaborate
               </a>
               <a href="/annual-report" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Annual Report
