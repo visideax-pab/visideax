@@ -124,7 +124,7 @@ export const team = [
     name: "Francesco Rocca",
     role: "Founder & Chief Executive Officer",
     location: "St. Moritz",
-    bio: "Leads VisideaX's strategic consulting engagements — business plans, financial models, and partnership presentations — drawing on direct on-the-ground standing in St. Moritz and M&A and institutional-partnership experience gained in London.",
+    bio: "Founder of VisideaX and a student in London. Leads the firm's strategic consulting engagements — business plans, financial models, and partnership presentations — drawing on direct on-the-ground standing in St. Moritz and M&A and institutional-partnership experience gained in London.",
     photo: "/team/francesco-rocca.jpg",
     linkedin: "https://www.linkedin.com/in/francesco-rocca-25041b365/",
   },

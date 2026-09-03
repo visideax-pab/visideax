@@ -6,7 +6,7 @@ import { TeamGrid } from "@/components/TeamGrid";
 export const metadata: Metadata = {
   title: "Founding Team | VisideaX",
   description:
-    "The founding team behind VisideaX — a private Swiss boutique advisory being built across St. Moritz, Zürich, and London.",
+    "The young, student-led founding team behind VisideaX — a strategic consulting practice across St. Moritz, Zürich, and London.",
 };
 
 export default function TeamPage() {
@@ -28,9 +28,11 @@ export default function TeamPage() {
             The Founding Team
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/65">
-            A small founding team built on origination and direct
-            territorial relationships — across St. Moritz, Zürich, and
-            London. Click any profile to read more.
+            A young, student-led founding team — currently at the London
+            School of Economics, King&apos;s College London, and building
+            on-the-ground standing in St. Moritz. It is exactly why our
+            engagements are scoped as consulting deliverables, not full
+            advisory mandates. Click any profile to read more.
           </p>
         </div>
       </section>

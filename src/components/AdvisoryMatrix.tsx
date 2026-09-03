@@ -45,11 +45,12 @@ export function AdvisoryMatrix() {
           </div>
           <span className="eyebrow text-alpine-gold">Engagement Model</span>
           <p className="text-balance text-sm leading-relaxed text-alpine-cream/75 sm:text-base">
-            VisideaX operates as a strategic consulting practice. We prepare the business plan,
-            the financial model, and the partnership presentation — we do not assume
-            responsibility for the underlying contacts, capital, or execution of any project,
-            with the exception of our own on-the-ground standing in St. Moritz. Engagements are
-            fee-based, beginning at CHF 5,000 depending on scope.
+            VisideaX is a young, student-led team — which is exactly why our scope is
+            deliberately narrow. We prepare the business plan, the financial model, and the
+            partnership presentation — we do not assume responsibility for the underlying
+            contacts, capital, or execution of any project, with the exception of our own
+            on-the-ground standing in St. Moritz. Engagements are fee-based, beginning at
+            CHF 5,000 depending on scope.
           </p>
         </motion.div>
       </div>
