@@ -49,6 +49,12 @@ export function Footer() {
               <a href="/team" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Team
               </a>
+              <a href="/how-we-work" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+                How We Work
+              </a>
+              <a href="/insights" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+                Insights
+              </a>
               <a href="/careers" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Collaborate
               </a>
