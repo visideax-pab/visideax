@@ -23,8 +23,8 @@ export function Pillars() {
       <div className="container relative">
         <SectionHeading
           eyebrow="Business Pillars"
-          title="Three Operating Pillars, One Institutional Moat"
-          description="Each mandate rests on the same three pillars — a defensible network, genuine ecosystem synergy, and Swiss structuring discipline."
+          title="Three Pillars Behind Every Engagement"
+          description="Each engagement rests on the same three pillars — genuine local standing in one territory, a tested analytical framework, and Swiss regulatory awareness."
           dark
         />
 

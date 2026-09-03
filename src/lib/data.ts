@@ -31,37 +31,37 @@ export const thesisPoints = [
 
 export const pillars = [
   {
-    id: "institutional-moat",
-    title: "Institutional Moat",
+    id: "st-moritz-standing",
+    title: "St. Moritz Standing",
     description:
-      "A boutique network reserved for a small circle of trusted counterparties across Switzerland and Europe — access built quietly on the ground in St. Moritz, and never advertised.",
+      "One territory where VisideaX has genuine, on-the-ground access — not a general claim, a specific one, built through our founder's direct presence in the valley.",
     points: [
-      "Direct relationships with cantonal and communal authorities",
-      "Operating licenses, permits, and reputational capital built over years",
-      "Proprietary map of off-market luxury assets across Switzerland and Europe",
+      "Direct, personal relationships within the St. Moritz and Engadin community",
+      "First-hand knowledge of the territory's luxury hospitality and events landscape",
+      "The one market where VisideaX takes an active role beyond the consulting deliverable",
     ],
   },
   {
-    id: "ecosystem-synergies",
-    title: "Ecosystem Synergies",
+    id: "analytical-framework",
+    title: "Analytical Framework",
     description:
-      "Every mandate is engineered around real synergy, not just capital flow — connecting the right actors so the partnership compounds value for decades.",
+      "Every business plan and pitch we prepare is built around a small set of tested lenses — the same ones a serious counterparty will apply when reviewing it.",
     points: [
       "Capital + Operator: institutional funding paired with proven hospitality execution",
       "Brand + Territory: luxury identity matched to a territory's authentic character",
       "Asset + Lifestyle: real estate positioned within a living, curated lifestyle narrative",
-      "Entrepreneur + Territory: partnerships between private entrepreneurs and the local jurisdiction itself, structured under English or Swiss law and anchored in London or St. Moritz",
+      "Entrepreneur + Territory: partnerships between private entrepreneurs and the local jurisdiction itself",
     ],
   },
   {
-    id: "swiss-structuring",
-    title: "Swiss Structuring",
+    id: "regulatory-awareness",
+    title: "Regulatory Awareness",
     description:
-      "Switzerland's regulatory complexity is not an obstacle — it is the moat. We structure every alliance to be resilient under Swiss corporate, fiscal, and regulatory law.",
+      "Switzerland's regulatory complexity (Lex Koller, cantonal licensing) shapes every model and plan we produce — informing a client's own legal counsel, never replacing it.",
     points: [
-      "Swiss corporate law and NewCo / Joint Venture architecture",
-      "Shareholder agreements (patti parasociali) and voting structures",
-      "Lex Koller compliance, operating licenses, and fiscal optimization",
+      "Business plans account for Lex Koller and foreign-ownership constraints",
+      "Financial models reflect realistic licensing and cantonal fiscal assumptions",
+      "We flag regulatory complexity early — clients bring their own counsel for execution",
     ],
   },
 ];

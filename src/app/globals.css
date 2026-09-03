@@ -79,6 +79,13 @@ body {
   background: linear-gradient(90deg, #38b6ff, transparent);
 }
 
+.cursor-ring-active {
+  width: 46px !important;
+  height: 46px !important;
+  background-color: rgba(56, 182, 255, 0.08);
+  border-color: rgba(56, 182, 255, 0.9);
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

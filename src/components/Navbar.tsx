@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/Magnetic";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -52,9 +53,11 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:block lg:justify-self-end">
-          <Button variant="gold" size="sm" asChild>
-            <a href="/#contact">Request Mandate</a>
-          </Button>
+          <Magnetic strength={10}>
+            <Button variant="gold" size="sm" asChild>
+              <a href="/#contact">Request Mandate</a>
+            </Button>
+          </Magnetic>
         </div>
 
         <button

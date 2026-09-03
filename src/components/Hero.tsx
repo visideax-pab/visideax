@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { Magnetic } from "@/components/Magnetic";
 import { heroMetrics } from "@/lib/data";
 
 const fadeUp = {
@@ -98,15 +99,19 @@ export function Hero() {
           variants={fadeUp}
           className="mt-12 flex flex-col items-center gap-4 sm:flex-row"
         >
-          <Button variant="gold" size="lg" asChild>
-            <a href="#contact" className="inline-flex items-center gap-3">
-              Request Confidential Mandate
-              <ArrowRight size={16} />
-            </a>
-          </Button>
-          <Button variant="outlineLight" size="lg" asChild>
-            <a href="#overview">Explore Advisory</a>
-          </Button>
+          <Magnetic>
+            <Button variant="gold" size="lg" asChild>
+              <a href="#contact" className="inline-flex items-center gap-3">
+                Request Confidential Mandate
+                <ArrowRight size={16} />
+              </a>
+            </Button>
+          </Magnetic>
+          <Magnetic>
+            <Button variant="outlineLight" size="lg" asChild>
+              <a href="#overview">Explore Advisory</a>
+            </Button>
+          </Magnetic>
         </motion.div>
 
         <motion.div
