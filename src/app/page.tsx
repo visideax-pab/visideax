@@ -1,6 +1,5 @@
 import { Hero } from "@/components/Hero";
 import { BrandFilm } from "@/components/BrandFilm";
-import { InvestorNotice } from "@/components/InvestorNotice";
 import { Territories } from "@/components/Territories";
 import { ExecutiveOverview } from "@/components/ExecutiveOverview";
 import { Pillars } from "@/components/Pillars";
@@ -12,7 +11,6 @@ export default function Home() {
     <main>
       <Hero />
       <BrandFilm />
-      <InvestorNotice />
       <Territories />
       <ExecutiveOverview />
       <Pillars />
