@@ -11,7 +11,7 @@ const navLinks = [
   { href: "/#overview", label: "Overview" },
   { href: "/#advisory", label: "Advisory" },
   { href: "/how-we-work", label: "Process" },
-  { href: "/team", label: "Team" },
+  { href: "/why-us", label: "For Entrepreneurs" },
 ];
 
 export function Navbar() {

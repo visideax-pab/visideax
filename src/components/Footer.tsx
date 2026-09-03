@@ -46,8 +46,8 @@ export function Footer() {
               <a href="/#advisory" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Advisory Services
               </a>
-              <a href="/team" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
-                Team
+              <a href="/why-us" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+                For Entrepreneurs
               </a>
               <a href="/how-we-work" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 How We Work

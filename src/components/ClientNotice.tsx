@@ -6,7 +6,7 @@ import { Magnetic } from "@/components/Magnetic";
 
 const markers = [
   { label: "Now Taking Clients", detail: "Currently accepting new consulting engagements" },
-  { label: "From CHF 5,000", detail: "Fee agreed in writing before work begins" },
+  { label: "Priced Per Project", detail: "Fee agreed in writing before work begins" },
   { label: "By Direct Introduction", detail: "Reviewed personally, no long intake process" },
 ];
 
@@ -52,7 +52,7 @@ export function ClientNotice() {
             If you have a project — real estate, a signature event, a partnership, a succession
             — that needs a serious business plan, financial model, or presentation before it
             goes any further, we want to hear about it. Every engagement is reviewed personally,
-            starting at CHF 5,000.
+            and priced individually based on the project.
           </p>
 
           <Magnetic>

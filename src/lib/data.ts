@@ -118,25 +118,3 @@ export const advisoryServices = [
 ];
 
 export const footprint = ["St. Moritz", "Zürich", "London"];
-
-export const team = [
-  {
-    name: "Francesco Rocca",
-    role: "Founder & Chief Executive Officer",
-    location: "St. Moritz",
-    bio: "Founder of VisideaX and a student in London. Leads the firm's strategic consulting engagements — business plans, financial models, and partnership presentations — drawing on direct on-the-ground standing in St. Moritz and M&A and institutional-partnership experience gained in London.",
-    linkedin: "https://www.linkedin.com/in/francesco-rocca-25041b365/",
-  },
-  {
-    name: "Lucas Bauman",
-    role: "Co-Founder",
-    location: "London",
-    bio: "Co-Founder of VisideaX and a student at the London School of Economics, with experience at KKR bringing a private-equity and institutional-investing lens to the firm's financial modeling and analysis.",
-  },
-  {
-    name: "Alex Natvil",
-    role: "Co-Founder",
-    location: "London",
-    bio: "Co-Founder of VisideaX and a student at King's College London.",
-  },
-];

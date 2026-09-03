@@ -49,8 +49,8 @@ export function AdvisoryMatrix() {
             deliberately narrow. We prepare the business plan, the financial model, and the
             partnership presentation — we do not assume responsibility for the underlying
             contacts, capital, or execution of any project, with the exception of our own
-            on-the-ground standing in St. Moritz. Engagements are fee-based, beginning at
-            CHF 5,000 depending on scope.
+            on-the-ground standing in St. Moritz. Engagements are fee-based, priced
+            individually for each project.
           </p>
         </motion.div>
       </div>

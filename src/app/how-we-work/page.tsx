@@ -18,7 +18,7 @@ const steps = [
     icon: FileSignature,
     title: "2. Scoping & Fee Agreement",
     description:
-      "Before any work begins, we agree in writing on the deliverable, the timeline, and the fee — starting at CHF 5,000, scaled to complexity. No open-ended billing.",
+      "Before any work begins, we agree in writing on the deliverable, the timeline, and the fee — priced individually for each project, based on scope and complexity. No open-ended billing.",
   },
   {
     icon: PenTool,
