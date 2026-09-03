@@ -103,6 +103,18 @@ export const advisoryServices = [
     description:
       "Structured succession and exit pathways for family-owned European assets that protect legacy while unlocking institutional capital.",
   },
+  {
+    id: "hospitality-fb",
+    title: "Hospitality & F&B Concepts",
+    description:
+      "Origination and structuring of branded hospitality and nightlife concepts for luxury territories — from institutional access and licensing to operator and design partner selection.",
+  },
+  {
+    id: "signature-events",
+    title: "Signature Events & Cultural Partnerships",
+    description:
+      "Private, invitation-led structuring of signature cultural and seasonal events for territories seeking curated visibility among a defined circle, never mass attendance.",
+  },
 ];
 
 export const footprint = ["St. Moritz", "Zürich", "London"];
@@ -115,21 +127,5 @@ export const team = [
     bio: "Leads origination and overall strategic direction across the firm's territorial network, drawing on direct client relationships built coaching UHNW individuals in St. Moritz and on M&A and institutional-partnership experience gained in London.",
     photo: "/team/francesco-rocca.jpg",
     linkedin: "https://www.linkedin.com/in/francesco-rocca-25041b365/",
-  },
-  {
-    name: "Federico del Maestro",
-    role: "Managing Partner",
-    location: "Zürich",
-    bio: "Currently a Collateral Manager on UBS's Securities Lending, Borrowing and Repo Trading desk in Zürich, managing counterparty risk and margin exposure for Investment Bank clients. Brings that same risk and governance discipline to VisideaX's operational execution and financial architecture.",
-    photo: "/team/federico-del-maestro.jpg",
-    linkedin: "https://www.linkedin.com/in/delmaestrof/",
-  },
-  {
-    name: "Riccardo Del Maestro",
-    role: "Director, M&A Advisory",
-    location: "Zürich",
-    bio: "Strategy and M&A Associate at KPMG Corporate Finance in Milan, with experience across strategic due diligence and cross-border transactions. Supports VisideaX's deal structuring, due diligence, and counterparty valuation.",
-    photo: "/team/riccardo-del-maestro.jpg",
-    linkedin: "https://www.linkedin.com/in/riccardo-del-maestro-6b9556175/",
   },
 ];

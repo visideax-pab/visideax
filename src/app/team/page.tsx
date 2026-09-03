@@ -6,7 +6,7 @@ import { TeamGrid } from "@/components/TeamGrid";
 export const metadata: Metadata = {
   title: "Founding Team | VisideaX",
   description:
-    "The three founding partners behind VisideaX — a private Swiss boutique advisory being built across St. Moritz, Zürich, and London.",
+    "The founding team behind VisideaX — a private Swiss boutique advisory being built across St. Moritz, Zürich, and London.",
 };
 
 export default function TeamPage() {
@@ -28,9 +28,9 @@ export default function TeamPage() {
             The Founding Team
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/65">
-            Three founding partners spanning origination, operational
-            governance, and M&amp;A structuring — across St. Moritz and
-            Zürich. Click any profile to read more.
+            A small founding team built on origination and direct
+            territorial relationships — across St. Moritz, Zürich, and
+            London. Click any profile to read more.
           </p>
         </div>
       </section>
@@ -47,8 +47,8 @@ export default function TeamPage() {
             <p className="text-balance text-sm leading-relaxed text-alpine-cream/75 sm:text-base">
               Every mandate — before it is accepted, and before it is
               closed — is reviewed and approved personally by Francesco
-              Rocca and Federico del Maestro. No engagement moves forward
-              without passing through both of their hands.
+              Rocca. No engagement moves forward without passing through
+              his hands.
             </p>
           </div>
         </div>
