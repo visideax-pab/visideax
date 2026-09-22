@@ -3,6 +3,7 @@ import { BrandFilm } from "@/components/BrandFilm";
 import { ClientNotice } from "@/components/ClientNotice";
 import { ExecutiveOverview } from "@/components/ExecutiveOverview";
 import { Pillars } from "@/components/Pillars";
+import { Presence } from "@/components/Presence";
 import { AdvisoryMatrix } from "@/components/AdvisoryMatrix";
 import { Contact } from "@/components/Contact";
 
@@ -14,6 +15,7 @@ export default function Home() {
       <ClientNotice />
       <ExecutiveOverview />
       <Pillars />
+      <Presence />
       <AdvisoryMatrix />
       <Contact />
     </main>
