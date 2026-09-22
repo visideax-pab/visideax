@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Insights | VisideaX",
   description:
-    "Short analytical notes from VisideaX on territory, capital, and Swiss structuring — the thinking behind the business plans we prepare.",
+    "Short analytical notes from VisideaX on events, partnerships and cross-border structuring — the thinking behind our advisory work.",
 };
 
 const insights = [

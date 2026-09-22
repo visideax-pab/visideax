@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { FileText } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TiltCard } from "@/components/TiltCard";
 import { advisoryServices } from "@/lib/data";
@@ -12,8 +13,8 @@ export function AdvisoryMatrix() {
       <div className="container">
         <SectionHeading
           eyebrow="Advisory Services"
-          title="A Disciplined, Narrow Service Matrix"
-          description="Strategic consulting — business plans, financial models, and partnership presentations, prepared for private clients on a fee basis."
+          title="Advisory Services for Events and Partnerships"
+          description="Strategic consulting on high-network events and large-scale partnerships across Europe, for governments, destinations, institutions and private clients on a fee basis."
         />
 
         <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -24,12 +25,18 @@ export function AdvisoryMatrix() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
             >
-              <TiltCard className="border border-alpine-slate/10 bg-white/60 p-8 transition-colors hover:border-alpine-gold/40">
-                <h3 className="font-display text-lg text-alpine-slate">{service.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-alpine-slate/55">
-                  {service.description}
-                </p>
-              </TiltCard>
+              <Link href={`/?service=${encodeURIComponent(service.title)}#contact`} className="block h-full">
+                <TiltCard className="group h-full border border-alpine-slate/10 bg-white/60 p-8 transition-colors hover:border-alpine-gold/40">
+                  <h3 className="font-display text-lg text-alpine-slate">{service.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-alpine-slate/55">
+                    {service.description}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-alpine-gold opacity-0 transition-opacity group-hover:opacity-100">
+                    Discuss This
+                    <ArrowRight size={13} />
+                  </span>
+                </TiltCard>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -45,12 +52,10 @@ export function AdvisoryMatrix() {
           </div>
           <span className="eyebrow text-alpine-gold">Engagement Model</span>
           <p className="text-balance text-sm leading-relaxed text-alpine-cream/75 sm:text-base">
-            VisideaX is a young, student-led team — which is exactly why our scope is
-            deliberately narrow. We prepare the business plan, the financial model, and the
-            partnership presentation — we do not assume responsibility for the underlying
-            contacts, capital, or execution of any project, with the exception of our own
-            on-the-ground standing in St. Moritz. Engagements are fee-based, priced
-            individually for each project.
+            Our scope is deliberately focused: we design and structure the event or partnership,
+            prepare the supporting business case and presentation — and we do not assume
+            responsibility for the underlying contacts, capital, or execution of any project.
+            Engagements are fee-based, priced individually for each project.
           </p>
         </motion.div>
       </div>

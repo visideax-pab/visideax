@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,11 +14,11 @@ import { Button } from "@/components/ui/button";
 
 const requestSchema = z.object({
   name: z.string().min(2, "Please enter your full name."),
-  entity: z.string().min(2, "Please enter your entity or organization."),
+  entity: z.string().optional(),
   email: z.string().email("Please enter a valid email address."),
   reason: z
     .string()
-    .min(10, "Please briefly explain why you would like to receive the report."),
+    .min(10, "Please briefly tell us what you're working on."),
 });
 
 type RequestValues = z.infer<typeof requestSchema>;
@@ -49,11 +50,11 @@ export default function AnnualReportPage() {
         },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `Annual Report request — ${data.entity}`,
+          subject: `Market briefing request — ${data.name}`,
           "Full Name": data.name,
-          "Entity / Organization": data.entity,
+          "Company / Project": data.entity || "—",
           email: data.email,
-          "Reason for Request": data.reason || "—",
+          "What They're Working On": data.reason,
         }),
       });
 
@@ -87,15 +88,14 @@ export default function AnnualReportPage() {
           }}
         />
         <div className="container relative flex flex-col items-center text-center">
-          <span className="eyebrow text-alpine-gold">Annual Partnership Report</span>
+          <span className="eyebrow text-alpine-gold">Market Briefing</span>
           <h1 className="mt-4 max-w-2xl text-balance font-display text-3xl font-medium text-alpine-cream sm:text-5xl">
-            A Confidential Record, By Request Only
+            Request Our St. Moritz Market Briefing
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/65">
-            Each year we compile a confidential report of the partnerships
-            structured across our network. It is not published or
-            distributed publicly — it is shared directly, on request, after
-            review.
+            A short briefing on the St. Moritz hospitality and real estate
+            landscape — regulatory context, market dynamics, and where we see
+            opportunity. Shared directly by email, at no cost.
           </p>
         </div>
       </section>
@@ -108,9 +108,9 @@ export default function AnnualReportPage() {
                 <Lock size={20} strokeWidth={1.5} />
               </div>
               <p className="mt-5 text-sm leading-relaxed text-alpine-slate/60">
-                Requests are reviewed individually. We do not send the report
-                to every inquiry — please tell us briefly who you are and why
-                you would like to receive it.
+                We share this directly with entrepreneurs and investors
+                evaluating a project in the region — tell us briefly about
+                yours and we&apos;ll send it over.
               </p>
             </div>
 
@@ -129,9 +129,8 @@ export default function AnnualReportPage() {
                     Request Received
                   </h3>
                   <p className="mt-4 max-w-md text-sm leading-relaxed text-alpine-slate/60">
-                    Thank you. Your request has been logged. If approved, the
-                    report will be sent directly to the email address you
-                    provided.
+                    Thank you. We&apos;ll send the briefing directly to the
+                    email address you provided, shortly.
                   </p>
                   <Button
                     variant="outline"
@@ -165,11 +164,11 @@ export default function AnnualReportPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="entity" className="text-alpine-slate/60">
-                      Entity / Organization <span className="text-alpine-gold">*</span>
+                      Company / Project
                     </Label>
                     <Input
                       id="entity"
-                      placeholder="e.g. Family Office, Fund, or Company"
+                      placeholder="e.g. your company, or leave blank"
                       {...register("entity")}
                     />
                     {errors.entity && (
@@ -194,11 +193,11 @@ export default function AnnualReportPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="reason" className="text-alpine-slate/60">
-                      Reason for Request <span className="text-alpine-gold">*</span>
+                      What Are You Working On? <span className="text-alpine-gold">*</span>
                     </Label>
                     <Textarea
                       id="reason"
-                      placeholder="Briefly, why you would like to receive the report."
+                      placeholder="Briefly describe your project or interest in St. Moritz."
                       {...register("reason")}
                     />
                     {errors.reason && (
@@ -218,21 +217,21 @@ export default function AnnualReportPage() {
                     disabled={isSubmitting}
                   >
                     <span className="inline-flex items-center gap-3">
-                      {isSubmitting ? "Submitting..." : "Request the Report"}
+                      {isSubmitting ? "Submitting..." : "Request the Briefing"}
                       {!isSubmitting && <ArrowRight size={16} />}
                     </span>
                   </Button>
 
                   <div className="flex items-center justify-center gap-2 pt-2 text-xs text-alpine-slate/40">
                     <FileText size={14} />
-                    Shared directly by email upon approval
+                    Shared directly by email
                   </div>
                   <p className="text-center text-xs text-alpine-slate/35">
                     Your information is used solely by VisideaX to respond to
                     your request and is never shared with third parties.{" "}
-                    <a href="/privacy" className="underline hover:text-alpine-slate">
+                    <Link href="/privacy" className="underline hover:text-alpine-slate">
                       Privacy Policy
-                    </a>
+                    </Link>
                   </p>
                 </motion.form>
               )}

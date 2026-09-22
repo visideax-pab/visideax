@@ -5,9 +5,9 @@ import { ArrowRight } from "lucide-react";
 import { Magnetic } from "@/components/Magnetic";
 
 const markers = [
-  { label: "Now Taking Clients", detail: "Currently accepting new consulting engagements" },
+  { label: "Across Europe", detail: "Events and partnerships in any European jurisdiction" },
   { label: "Priced Per Project", detail: "Fee agreed in writing before work begins" },
-  { label: "By Direct Introduction", detail: "Reviewed personally, no long intake process" },
+  { label: "Handled Personally", detail: "Confidential by default, reviewed by the founding team" },
 ];
 
 export function ClientNotice() {
@@ -39,20 +39,19 @@ export function ClientNotice() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-alpine-gold opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-alpine-gold" />
             </span>
-            <span className="eyebrow text-alpine-gold">Now Taking Clients</span>
+            <span className="eyebrow text-alpine-gold">Now Accepting Engagements</span>
           </div>
 
           <h2 className="mt-8 text-balance font-display text-4xl font-medium leading-[1.1] text-alpine-cream sm:text-5xl lg:text-6xl">
-            We&apos;re a Young Practice.
+            Have an Event or Partnership
             <br />
-            We Need Real Projects to Work On.
+            That Needs to Be Done Properly?
           </h2>
 
           <p className="mt-7 max-w-2xl text-balance text-base leading-relaxed text-alpine-cream/70 sm:text-lg">
-            If you have a project — real estate, a signature event, a partnership, a succession
-            — that needs a serious business plan, financial model, or presentation before it
-            goes any further, we want to hear about it. Every engagement is reviewed personally,
-            and priced individually based on the project.
+            Governments, destinations, family offices and entrepreneurs bring us the events
+            and partnerships that need a serious structure before they go any further. Every
+            engagement is reviewed personally and priced individually based on the project.
           </p>
 
           <Magnetic>
@@ -62,7 +61,7 @@ export function ClientNotice() {
               whileTap={{ scale: 0.98 }}
               className="relative mt-10 inline-flex items-center gap-3 border border-alpine-gold bg-alpine-gold px-9 py-4 text-xs font-bold uppercase tracking-[0.18em] text-alpine-slate shadow-gold transition-colors hover:bg-alpine-gold/90"
             >
-              Bring Us a Project
+              Introduce a Project
               <ArrowRight size={16} />
             </motion.a>
           </Magnetic>

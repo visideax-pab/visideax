@@ -36,10 +36,7 @@ export interface OfficeMarker {
   y: number;
 }
 
-export const OFFICES: OfficeMarker[] = [
-  { id: "office-st-moritz", name: "VisideaX — St. Moritz", x: 76, y: 62 },
-  { id: "office-zurich", name: "VisideaX — Zürich", x: 59, y: 30 },
-];
+export const OFFICES: OfficeMarker[] = [];
 
 export type ProjectCategory = "real-estate" | "event" | "value-based";
 

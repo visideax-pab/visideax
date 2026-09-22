@@ -39,7 +39,8 @@ export function FlowField({
     let height = 0;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let points: { x: number; y: number; phase: number }[] = [];
-    let animationFrame: number;
+    let animationFrame: number | null = null;
+    let visible = false;
 
     const setup = () => {
       const rect = container.getBoundingClientRect();
@@ -97,16 +98,31 @@ export function FlowField({
         ctx.stroke();
       }
 
-      animationFrame = requestAnimationFrame(draw);
+      animationFrame = visible ? requestAnimationFrame(draw) : null;
     };
 
     setup();
 
     if (prefersReducedMotion) {
       draw(0);
-    } else {
-      animationFrame = requestAnimationFrame(draw);
     }
+
+    // Only run the animation loop while the canvas is actually on screen —
+    // it was previously running forever from mount, burning CPU/battery even
+    // when this section was scrolled out of view.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible && animationFrame === null && !prefersReducedMotion) {
+          animationFrame = requestAnimationFrame(draw);
+        } else if (!visible && animationFrame !== null) {
+          cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(container);
 
     const handleResize = () => setup();
     const handlePointerMove = (e: PointerEvent) => {
@@ -126,7 +142,8 @@ export function FlowField({
     container.addEventListener("pointerleave", handlePointerLeave);
 
     return () => {
-      cancelAnimationFrame(animationFrame);
+      if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+      observer.disconnect();
       window.removeEventListener("resize", handleResize);
       container.removeEventListener("pointermove", handlePointerMove);
       container.removeEventListener("pointerleave", handlePointerLeave);

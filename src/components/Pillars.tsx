@@ -24,7 +24,7 @@ export function Pillars() {
         <SectionHeading
           eyebrow="Business Pillars"
           title="Three Pillars Behind Every Engagement"
-          description="Each engagement rests on the same three pillars — genuine local standing in one territory, a tested analytical framework, and Swiss regulatory awareness."
+          description="Each engagement rests on the same three pillars — genuine Alpine roots, the architecture of the partnership behind the event, and European regulatory awareness."
           dark
         />
 

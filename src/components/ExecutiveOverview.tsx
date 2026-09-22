@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { EyeOff } from "lucide-react";
+import { Users } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { FlowField } from "@/components/FlowField";
 import { thesisPoints } from "@/lib/data";
@@ -16,8 +16,8 @@ export function ExecutiveOverview() {
       <div className="container relative">
         <SectionHeading
           eyebrow="Executive Overview"
-          title="A Market Thesis Built for Discretion, Not Volume"
-          description="We do not run auctions. We architect structured partnerships between capital, brand, and territory — engineered to survive decades, not just a closing date."
+          title="Events and Partnerships, Built on Discretion"
+          description="We advise on the gatherings and alliances where the right people meet the right counterparties — designed around relationship, not attendance."
         />
 
         <motion.div
@@ -27,17 +27,15 @@ export function ExecutiveOverview() {
           className="mx-auto mt-16 flex max-w-3xl flex-col items-center gap-5 border border-alpine-gold/40 bg-alpine-slate px-8 py-10 text-center sm:px-14"
         >
           <div className="flex h-11 w-11 items-center justify-center border border-alpine-gold/40 text-alpine-gold">
-            <EyeOff size={20} strokeWidth={1.5} />
+            <Users size={20} strokeWidth={1.5} />
           </div>
-          <span className="eyebrow text-alpine-gold">A Boutique, By Design</span>
+          <span className="eyebrow text-alpine-gold">Selective By Design</span>
           <p className="text-balance text-sm leading-relaxed text-alpine-cream/75 sm:text-base">
-            We are not built for recognition. We work for a small circle of
-            trusted principals, not for public visibility — most of what we
-            structure is never announced, and many of our closed mandates stay
-            private long after they close. If you know of us, it is because
-            someone we already trust introduced you. We complete a
-            deliberately small number of mandates each year — never many,
-            always structured to last decades, not to fill a quota.
+            We take on a deliberately limited number of engagements at a
+            time, and each one is handled personally by the founding team.
+            Confidentiality is the default: what we work on stays between us
+            and the client. Governments, destinations, family offices and
+            private entrepreneurs are all welcome to introduce a project.
           </p>
         </motion.div>
 

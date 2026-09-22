@@ -23,25 +23,26 @@ const body = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://visideax.com"),
-  title: "VisideaX | Partnership Advisory Boutique",
+  title: "VisideaX | Events & Strategic Partnerships Across Europe",
   description:
-    "VisideaX architects durable alliances between capital, luxury brands, and the European territories that anchor them. A private Swiss boutique advisory operating by introduction only, across St. Moritz, Zürich, and London.",
+    "VisideaX is a newly formed, privately held advisory practice on high-network events and large-scale partnerships across Europe, with presence in St. Moritz, Lugano and Bratislava.",
   keywords: [
     "VisideaX",
-    "Partnership Advisory Boutique",
-    "Swiss boutique advisory",
-    "St. Moritz",
-    "Zürich",
-    "London",
-    "Lex Koller",
+    "high-network events",
+    "event consulting Europe",
+    "strategic partnerships",
+    "government and destination partnerships",
+    "sponsorship structuring",
     "Joint Venture structuring",
-    "private luxury advisory",
+    "St. Moritz",
+    "Lugano",
+    "Bratislava",
   ],
   authors: [{ name: "VisideaX" }],
   openGraph: {
-    title: "VisideaX | Partnership Advisory Boutique",
+    title: "VisideaX | Events & Strategic Partnerships Across Europe",
     description:
-      "Architects of durable alliances between capital, luxury brands, and the European territories that anchor them.",
+      "A newly formed, privately held advisory practice on high-network events and large-scale partnerships across Europe.",
     type: "website",
     locale: "en_CH",
     images: ["/logo-mark-square.png"],
@@ -55,23 +56,11 @@ const organizationJsonLd = {
   url: "https://visideax.com",
   logo: "https://visideax.com/logo-mark-square.png",
   description:
-    "A private Swiss boutique advisory architecting strategic partnerships between capital, luxury brands, and territories across St. Moritz, Zürich, and London.",
+    "A newly formed, privately held advisory practice on high-network events and large-scale partnerships across Europe.",
   address: [
-    {
-      "@type": "PostalAddress",
-      addressLocality: "St. Moritz",
-      addressCountry: "CH",
-    },
-    {
-      "@type": "PostalAddress",
-      addressLocality: "Zürich",
-      addressCountry: "CH",
-    },
-    {
-      "@type": "PostalAddress",
-      addressLocality: "London",
-      addressCountry: "GB",
-    },
+    { "@type": "PostalAddress", addressLocality: "St. Moritz", addressCountry: "CH" },
+    { "@type": "PostalAddress", addressLocality: "Lugano", addressCountry: "CH" },
+    { "@type": "PostalAddress", addressLocality: "Bratislava", addressCountry: "SK" },
   ],
   sameAs: ["https://www.linkedin.com/company/visideax-/about/"],
 };

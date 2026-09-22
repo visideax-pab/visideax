@@ -30,7 +30,7 @@ const steps = [
     icon: PackageCheck,
     title: "4. Delivery & Presentation",
     description:
-      "You receive the finished document. What happens next — the negotiation, the execution, the capital — is between you and your counterparties. Our role ends at delivery, except in St. Moritz.",
+      "You receive the finished document. What happens next — the negotiation, the execution, the capital — is between you and your counterparties. Our role ends at delivery unless agreed otherwise in writing.",
   },
 ];
 
@@ -81,12 +81,11 @@ export default function HowWeWorkPage() {
           </div>
 
           <div className="mx-auto mt-14 flex max-w-2xl flex-col items-center gap-5 border border-alpine-gold/40 bg-alpine-slate px-8 py-10 text-center sm:px-14">
-            <span className="eyebrow text-alpine-gold">The One Exception</span>
+            <span className="eyebrow text-alpine-gold">Scope</span>
             <p className="text-balance text-sm leading-relaxed text-alpine-cream/75 sm:text-base">
-              In St. Moritz, where our founder has genuine on-the-ground
-              standing, we can credibly stay involved beyond delivery — as a
-              local counterpart, not just a document preparer. Everywhere
-              else, the deliverable is the engagement.
+              The deliverable is the engagement. Where a project calls for a
+              closer role — as a counterpart in the room, not just a document
+              preparer — we agree it in writing at the outset.
             </p>
           </div>
         </div>

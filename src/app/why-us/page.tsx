@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -11,35 +12,35 @@ export const metadata: Metadata = {
 
 const categories = [
   {
-    title: "Real Estate & Signature Events",
+    title: "Signature Events",
     image: "/images/st-moritz.jpg",
     description:
-      "A hospitality concept, a redevelopment, a signature winter event — we build the business plan, the day-in-the-life revenue model, and the CapEx breakdown that a serious operator or capital partner expects to see before saying yes.",
+      "An invitation-led summit, a private winter gathering, a flagship cultural moment — we work out who needs to be in the room, the format that earns their time, and the commercial model that pays for it.",
     points: [
-      "Business plan and commercial logic",
-      "Revenue and cost modeling, built around your assumptions",
-      "The presentation you actually take into the room",
+      "Concept, format and guest strategy",
+      "Venue logic and operator selection",
+      "A commercial model built around your objectives",
     ],
   },
   {
-    title: "Regulatory & Financial Structuring",
+    title: "Government & Destination Partnerships",
     image: "/images/zurich.jpg",
     description:
-      "Swiss regulatory complexity — Lex Koller, cantonal licensing, fiscal structure — shapes what a project can look like long before a lawyer gets involved. We build that awareness into the model from the start, so your own counsel isn't starting from zero.",
+      "Tourism authorities, cities and regions increasingly partner with private organisers to bring flagship events to a territory. We structure those arrangements so each side knows its role, its risk and its return.",
     points: [
-      "Financial models that reflect realistic regulatory assumptions",
-      "Early flagging of structural constraints, not surprises later",
-      "Documentation built to withstand real scrutiny",
+      "Public–private partnership frameworks",
+      "Proposals built for institutional decision-makers",
+      "Permitting and licensing groundwork by jurisdiction",
     ],
   },
   {
-    title: "Capital & International Partnerships",
+    title: "Sponsorship & Cross-Border Structuring",
     image: "/images/london.jpg",
     description:
-      "Whether the counterparty is a family office, an operator, or an institutional partner, the document that reaches them needs to read as rigorous on first pass. We prepare partnership presentations built for exactly that audience.",
+      "Whether the counterparty is a brand, a family office or a ministry, the structure behind the event has to read as rigorous on first pass. We prepare the sponsor, host and JV architecture across European borders.",
     points: [
-      "Partnership presentations for institutional and family-office audiences",
-      "Feasibility estimates using a consistent, benchmarked methodology",
+      "Sponsor, host and co-organiser agreements framework",
+      "Cross-border considerations flagged early, for your counsel",
       "One point of contact, start to finish",
     ],
   },
@@ -61,13 +62,13 @@ export default function WhyUsPage() {
         <div className="container relative flex flex-col items-center text-center">
           <span className="eyebrow text-alpine-gold">For Entrepreneurs</span>
           <h1 className="mt-4 max-w-2xl text-balance font-display text-3xl font-medium text-alpine-cream sm:text-5xl">
-            One Partner for Everything You Need to Bring a Project to the Table
+            One Partner for Events and Partnerships That Have to Be Done Properly
           </h1>
           <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-alpine-cream/65">
-            If you&apos;re an entrepreneur with a real project — real estate,
-            an event, a partnership — you shouldn&apos;t need four different
-            vendors to get it in front of the right people. That&apos;s what
-            VisideaX is built to replace.
+            If you&apos;re a government body, a destination, a family office or an
+            entrepreneur with an event or partnership in mind, you shouldn&apos;t
+            need four different advisers to get it in front of the right
+            people. That&apos;s what VisideaX is built to replace.
           </p>
         </div>
       </section>
@@ -118,15 +119,15 @@ export default function WhyUsPage() {
       <section className="bg-alpine-slate py-20 sm:py-28">
         <div className="container">
           <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
-            <span className="eyebrow text-alpine-gold">Why One Team, Not Four Vendors</span>
+            <span className="eyebrow text-alpine-gold">One Team, Not Four Vendors</span>
             <p className="text-balance text-base leading-relaxed text-alpine-cream/70 sm:text-lg">
-              A business-plan writer doesn&apos;t always understand Swiss structuring. A
-              financial modeler doesn&apos;t always know what a family office actually asks in
-              the room. VisideaX exists so an entrepreneur has one accountable point of
+              An event producer doesn&apos;t always understand partnership structuring. A
+              lawyer doesn&apos;t always know what a destination or a sponsor actually needs
+              in the room. VisideaX exists so you have one accountable point of
               contact — not a chain of specialists who have never spoken to each other.
             </p>
             <Button variant="gold" size="lg" asChild className="mt-4">
-              <a href="/#contact">Bring Us Your Project</a>
+              <Link href="/#contact">Introduce Your Project</Link>
             </Button>
           </div>
         </div>

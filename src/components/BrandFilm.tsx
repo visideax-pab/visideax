@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
-import { footprint } from "@/lib/data";
+const themes = ["Events", "Partnerships", "Europe"];
 
 const SCENES = [
   { key: "mark", duration: 3400 },
@@ -60,12 +61,12 @@ function FilmScene({ scene }: { scene: number }) {
       <AnimatePresence mode="wait">
         {scene === 0 && (
           <motion.div key="s0" {...fade} className="relative">
-            <img src="/logo-mark-light.svg" alt="VisideaX" className="mx-auto h-14 w-auto sm:h-20" />
+            <Image src="/logo-mark-light.svg" alt="VisideaX" width={220} height={47} className="mx-auto h-14 w-auto sm:h-20" />
             <h2 className="mt-6 font-display text-3xl font-medium text-alpine-cream sm:text-5xl">
               VisideaX
             </h2>
             <p className="mt-3 text-xs font-medium uppercase tracking-[0.3em] text-alpine-gold sm:text-sm">
-              Partnership Advisory Boutique
+              Strategic Consulting
             </p>
           </motion.div>
         )}
@@ -82,7 +83,7 @@ function FilmScene({ scene }: { scene: number }) {
 
         {scene === 2 && (
           <motion.div key="s2" {...fade} className="relative flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
-            {footprint.map((city, i) => (
+            {themes.map((city, i) => (
               <React.Fragment key={city}>
                 {i > 0 && <span className="hidden h-px w-10 bg-alpine-gold/40 sm:block" />}
                 <motion.span
@@ -101,12 +102,12 @@ function FilmScene({ scene }: { scene: number }) {
         {scene === 3 && (
           <motion.div key="s3" {...fade} className="relative">
             <p className="font-display text-2xl font-medium text-alpine-cream sm:text-4xl">
-              Multi-Million Mandates,
+              Events and Partnerships,
               <br />
-              Built to Last
+              Structured to Last
             </p>
             <p className="mt-4 text-xs font-medium uppercase tracking-[0.25em] text-alpine-gold">
-              Our ambition for every partnership
+              Our approach to every engagement
             </p>
             <div className="mt-8 inline-flex items-center gap-2 border border-alpine-gold/50 px-5 py-2.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-alpine-cream/85">
               Request Confidential Mandate
@@ -148,7 +149,7 @@ export function BrandFilm() {
           <div>
             <span className="eyebrow text-alpine-gold">The Film</span>
             <p className="mt-2 max-w-md text-sm leading-relaxed text-alpine-slate/60">
-              A short visual introduction to VisideaX — the thesis, the territories, the ambition.
+              A short visual introduction to VisideaX — the thesis, the focus, the approach.
             </p>
           </div>
           <button

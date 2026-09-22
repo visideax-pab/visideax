@@ -1,120 +1,114 @@
 export const heroMetrics = [
   {
-    type: "counter" as const,
-    value: 2.4,
-    prefix: "€",
-    suffix: "T",
-    decimals: 1,
-    label: "Global luxury market cap (2026)",
-  },
-  {
-    type: "counter" as const,
-    value: 3,
-    prefix: "<",
-    suffix: "%",
-    decimals: 0,
-    label: "Traditional M&A success rate in lifestyle assets",
+    type: "text" as const,
+    text: "Across Europe",
+    label: "Where we advise",
   },
   {
     type: "text" as const,
-    text: "Multi-Million Mandates, Built to Last",
-    label: "Our ambition for every partnership",
+    text: "Events & Partnerships",
+    label: "What we do",
+  },
+  {
+    type: "text" as const,
+    text: "Founder-Led",
+    label: "Every engagement handled personally",
   },
 ];
 
 export const thesisPoints = [
-  "Capital is abundant; trustworthy origination is scarce.",
-  "Territories such as St. Moritz need curated partners, not volume.",
-  "Luxury operators seek equity-like alignment without M&A friction.",
-  "Swiss regulatory complexity (Lex Koller, licensing) is a protective moat.",
+  "The most valuable events are convened, not marketed — by relationship and by invitation.",
+  "Governments, destinations and private principals increasingly co-invest in the same moments.",
+  "Trustworthy origination is scarce; capital and attention are not.",
+  "Cross-border complexity — permits, licensing, sponsorship, tax — is where large partnerships stall.",
 ];
 
 export const pillars = [
   {
-    id: "st-moritz-standing",
-    title: "St. Moritz Standing",
+    id: "alpine-origins",
+    title: "Alpine Origins",
     description:
-      "One territory where VisideaX has genuine, on-the-ground access — not a general claim, a specific one, built through our founder's direct presence in the valley.",
+      "Founded in the Alps, with first-hand knowledge of the Engadin — one of Europe's most concentrated gathering points for principals and brands.",
     points: [
-      "Direct, personal relationships within the St. Moritz and Engadin community",
-      "First-hand knowledge of the territory's luxury hospitality and events landscape",
-      "The one market where VisideaX takes an active role beyond the consulting deliverable",
+      "First-hand knowledge of the Alpine luxury and events landscape",
+      "Direct access in the Engadin",
+      "A foundation from which we advise across Europe",
     ],
   },
   {
-    id: "analytical-framework",
-    title: "Analytical Framework",
+    id: "partnership-architecture",
+    title: "Partnership Architecture",
     description:
-      "Every business plan and pitch we prepare is built around a small set of tested lenses — the same ones a serious counterparty will apply when reviewing it.",
+      "Every event is also a partnership. We structure the alliances behind it — hosts, sponsors, institutions, destinations and operators — so the arrangement outlasts the occasion.",
     points: [
-      "Capital + Operator: institutional funding paired with proven hospitality execution",
-      "Brand + Territory: luxury identity matched to a territory's authentic character",
-      "Asset + Lifestyle: real estate positioned within a living, curated lifestyle narrative",
-      "Entrepreneur + Territory: partnerships between private entrepreneurs and the local jurisdiction itself",
+      "Sponsor, host and co-organiser frameworks",
+      "Public–private structures with destinations and authorities",
+      "JV and licensing models for recurring formats",
     ],
   },
   {
-    id: "regulatory-awareness",
-    title: "Regulatory Awareness",
+    id: "european-compliance",
+    title: "European Reach & Compliance",
     description:
-      "Switzerland's regulatory complexity (Lex Koller, cantonal licensing) shapes every model and plan we produce — informing a client's own legal counsel, never replacing it.",
+      "Permitting, licensing and cross-border considerations shape what an event or partnership can be. We surface them early to inform your own legal counsel, never to replace it.",
     points: [
-      "Business plans account for Lex Koller and foreign-ownership constraints",
-      "Financial models reflect realistic licensing and cantonal fiscal assumptions",
-      "We flag regulatory complexity early — clients bring their own counsel for execution",
+      "Permitting and licensing groundwork by jurisdiction",
+      "Cross-border structuring considerations flagged early",
+      "Clients bring their own counsel for execution",
     ],
   },
 ];
 
+export const footprint = ["St. Moritz", "Lugano", "Bratislava"];
+
 export const advisoryServices = [
+  {
+    id: "signature-events",
+    title: "Signature Events",
+    description:
+      "Conception and structuring of invitation-led gatherings for principals, brands and institutions — format, guest strategy, venue logic and commercial model.",
+  },
+  {
+    id: "government-partnerships",
+    title: "Government & Destination Partnerships",
+    description:
+      "Structuring partnerships between public bodies, tourism authorities and private organisers to bring flagship events and investment to a territory.",
+  },
+  {
+    id: "institutional-forums",
+    title: "Corporate & Institutional Forums",
+    description:
+      "Summits, retreats and investor gatherings designed around who needs to be in the room — and what each party leaves with.",
+  },
+  {
+    id: "sponsorship-architecture",
+    title: "Sponsorship & Partnership Architecture",
+    description:
+      "Frameworks that align sponsors, hosts, operators and institutions around a shared event or platform, with clear roles and commercial terms.",
+  },
   {
     id: "jv-architecture",
     title: "JV Architecture",
     description:
-      "Design and structuring of multi-party Joint Ventures that align capital, operators, and brand under a single durable governance framework.",
+      "Design and structuring of multi-party joint ventures that align capital, operators, and brand under a single durable governance framework.",
   },
   {
-    id: "private-club-deals",
-    title: "Private Club Deals",
+    id: "private-club-hospitality",
+    title: "Private Club & Hospitality Concepts",
     description:
-      "Origination and structuring of exclusive membership and private club concepts across Switzerland's most discreet territories.",
-  },
-  {
-    id: "territorial-alignment",
-    title: "Territorial Alignment",
-    description:
-      "Structuring partnerships between private entrepreneurs and the local territory itself — anchored under English or Swiss jurisdiction, in London or St. Moritz, depending on where the mandate is best served.",
-  },
-  {
-    id: "swiss-compliance",
-    title: "Swiss Compliance",
-    description:
-      "End-to-end navigation of Lex Koller, licensing regimes, and cantonal fiscal frameworks for foreign and domestic capital alike.",
+      "Origination and structuring of exclusive membership, club and hospitality concepts that anchor recurring events in luxury territories.",
   },
   {
     id: "operator-matching",
-    title: "Operator Matching",
+    title: "Venue & Operator Matching",
     description:
-      "Curated introduction and vetting of hospitality operators whose execution capability matches the ambition of the asset.",
+      "Curated introduction and vetting of venues and operators whose execution capability matches the ambition of the event.",
   },
   {
-    id: "exit-succession",
-    title: "Exit & Succession",
+    id: "cross-border-compliance",
+    title: "Cross-Border Permitting & Compliance",
     description:
-      "Structured succession and exit pathways for family-owned European assets that protect legacy while unlocking institutional capital.",
-  },
-  {
-    id: "hospitality-fb",
-    title: "Hospitality & F&B Concepts",
-    description:
-      "Origination and structuring of branded hospitality and nightlife concepts for luxury territories — from institutional access and licensing to operator and design partner selection.",
-  },
-  {
-    id: "signature-events",
-    title: "Signature Events & Cultural Partnerships",
-    description:
-      "Private, invitation-led structuring of signature cultural and seasonal events for territories seeking curated visibility among a defined circle, never mass attendance.",
+      "Permitting, licensing and jurisdictional groundwork for events and partnerships across Europe, prepared to inform your own legal counsel.",
   },
 ];
 
-export const footprint = ["St. Moritz", "Zürich", "London"];

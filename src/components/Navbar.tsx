@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -35,27 +37,27 @@ export function Navbar() {
       )}
     >
       <div className="container flex items-center justify-between lg:grid lg:grid-cols-3">
-        <a href="/#top" className="flex items-center group lg:justify-self-start">
-          <img src="/logo-mark-light.svg" alt="VisideaX" className="h-7 w-auto sm:h-8" />
-        </a>
+        <Link href="/#top" className="flex items-center group lg:justify-self-start">
+          <Image src="/logo-mark-light.svg" alt="VisideaX" width={220} height={47} priority className="h-7 w-auto sm:h-8" />
+        </Link>
 
         <nav className="hidden lg:flex lg:items-center lg:justify-self-center lg:gap-9">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="group relative text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-alpine-cream/70 transition-colors hover:text-alpine-gold"
             >
               {link.label}
               <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-alpine-gold transition-transform duration-300 ease-out group-hover:scale-x-100" />
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="hidden lg:block lg:justify-self-end">
           <Magnetic strength={10}>
             <Button variant="gold" size="sm" asChild>
-              <a href="/#contact">Request Mandate</a>
+              <Link href="/#contact">Request Mandate</Link>
             </Button>
           </Magnetic>
         </div>
@@ -80,19 +82,19 @@ export function Navbar() {
           >
             <div className="container flex flex-col gap-1 py-6">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className="py-3 text-sm font-semibold uppercase tracking-[0.2em] text-alpine-cream/80 hover:text-alpine-gold transition-colors border-b border-alpine-cream/10"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <Button variant="gold" size="default" className="mt-5 w-full" asChild>
-                <a href="/#contact" onClick={() => setOpen(false)}>
+                <Link href="/#contact" onClick={() => setOpen(false)}>
                   Request Mandate
-                </a>
+                </Link>
               </Button>
             </div>
           </motion.div>

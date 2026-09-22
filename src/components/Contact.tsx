@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -14,23 +16,30 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
 const mandateSchema = z.object({
-  entityName: z
-    .string()
-    .min(2, "Please enter the entity or Family Office name."),
+  entityName: z.string().optional(),
   contactName: z.string().min(2, "Please enter your full name."),
   email: z.string().email("Please enter a valid email address."),
   territory: z
     .string()
-    .min(2, "Please describe the target assets or territory."),
+    .min(2, "Please describe your project or territory."),
   message: z.string().min(10, "Please provide some context for your request."),
   nda: z.literal(true, {
-    errorMap: () => ({ message: "Confidentiality acknowledgment is required." }),
+    errorMap: () => ({ message: "Please confirm before submitting." }),
   }),
 });
 
 type MandateFormValues = z.infer<typeof mandateSchema>;
 
 const WEB3FORMS_ACCESS_KEY = "e667efc9-bc88-4b01-b39a-3d6fa43ae448";
+
+function ServicePrefill({ onService }: { onService: (service: string) => void }) {
+  const searchParams = useSearchParams();
+  React.useEffect(() => {
+    const service = searchParams.get("service");
+    if (service) onService(service);
+  }, [searchParams, onService]);
+  return null;
+}
 
 export function Contact() {
   const [submitted, setSubmitted] = React.useState(false);
@@ -41,6 +50,7 @@ export function Contact() {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<MandateFormValues>({
     resolver: zodResolver(mandateSchema),
@@ -54,6 +64,11 @@ export function Contact() {
     },
   });
 
+  const handleService = React.useCallback(
+    (service: string) => setValue("territory", service),
+    [setValue]
+  );
+
   const onSubmit = async (data: MandateFormValues) => {
     setSubmitError(null);
     try {
@@ -65,12 +80,12 @@ export function Contact() {
         },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `New confidential mandate request — ${data.entityName}`,
-          "Entity / Family Office Name": data.entityName,
+          subject: `New project inquiry — ${data.contactName}`,
           "Full Name": data.contactName,
+          "Company / Project Name": data.entityName || "—",
           email: data.email,
-          "Target Assets / Territory": data.territory,
-          "Context": data.message,
+          "Project Type / Territory": data.territory,
+          "Project Details": data.message,
         }),
       });
 
@@ -93,15 +108,18 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative bg-alpine-slate py-28 lg:py-36">
+      <React.Suspense fallback={null}>
+        <ServicePrefill onService={handleService} />
+      </React.Suspense>
       <div
         aria-hidden
         className="pointer-events-none absolute -top-24 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-alpine-gold/10 blur-[140px]"
       />
       <div className="container relative">
         <SectionHeading
-          eyebrow="Confidential Mandate Request"
-          title="Begin a Confidential Conversation"
-          description="Every inquiry is treated under Swiss legal privilege. Share the essentials and a founding partner will respond directly."
+          eyebrow="Get In Touch"
+          title="Tell Us About Your Project"
+          description="Share a few details and we'll respond directly, personally, within two business days."
           dark
         />
 
@@ -118,12 +136,11 @@ export function Contact() {
               >
                 <CheckCircle2 size={40} className="text-alpine-gold" />
                 <h3 className="mt-6 font-display text-2xl text-alpine-cream">
-                  Mandate Request Received
+                  Request Received
                 </h3>
                 <p className="mt-4 max-w-md text-sm leading-relaxed text-alpine-cream/60">
-                  Thank you. Your request has been logged under our confidentiality
-                  covenant. A founding partner will reach out directly within two
-                  business days.
+                  Thank you. We&apos;ve received your project details and will
+                  reach out directly within two business days.
                 </p>
                 <Button
                   variant="outlineLight"
@@ -148,11 +165,11 @@ export function Contact() {
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="entityName" className="text-alpine-cream/60">
-                      Entity / Family Office Name <span className="text-alpine-gold">*</span>
+                      Company / Project Name
                     </Label>
                     <Input
                       id="entityName"
-                      placeholder="e.g. Rocca Family Office"
+                      placeholder="e.g. your company, or leave blank"
                       className="border-alpine-cream/20 text-alpine-cream placeholder:text-alpine-cream/30 focus:border-alpine-gold"
                       {...register("entityName")}
                     />
@@ -184,7 +201,7 @@ export function Contact() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="you@entity.com"
+                    placeholder="you@email.com"
                     className="border-alpine-cream/20 text-alpine-cream placeholder:text-alpine-cream/30 focus:border-alpine-gold"
                     {...register("email")}
                   />
@@ -195,11 +212,11 @@ export function Contact() {
 
                 <div className="space-y-2">
                   <Label htmlFor="territory" className="text-alpine-cream/60">
-                    Target Assets / Territory <span className="text-alpine-gold">*</span>
+                    Project Type / Territory <span className="text-alpine-gold">*</span>
                   </Label>
                   <Input
                     id="territory"
-                    placeholder="e.g. Boutique hospitality asset, St. Moritz"
+                    placeholder="e.g. Invitation-only summit, Northern Italy"
                     className="border-alpine-cream/20 text-alpine-cream placeholder:text-alpine-cream/30 focus:border-alpine-gold"
                     {...register("territory")}
                   />
@@ -210,11 +227,11 @@ export function Contact() {
 
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-alpine-cream/60">
-                    Context <span className="text-alpine-gold">*</span>
+                    Project Details <span className="text-alpine-gold">*</span>
                   </Label>
                   <Textarea
                     id="message"
-                    placeholder="Briefly describe the partnership or mandate you have in mind."
+                    placeholder="Briefly describe your project and what you need help with."
                     className="border-alpine-cream/20 text-alpine-cream placeholder:text-alpine-cream/30 focus:border-alpine-gold"
                     {...register("message")}
                   />
@@ -236,8 +253,8 @@ export function Contact() {
                       />
                       <div>
                         <Label htmlFor="nda" className="text-alpine-cream/70 font-normal normal-case tracking-normal text-sm leading-relaxed">
-                          I acknowledge this inquiry will be treated under a mutual
-                          Non-Disclosure Agreement and Swiss legal privilege.
+                          I understand this inquiry is treated confidentially
+                          by VisideaX and used only to respond to my request.
                         </Label>
                         {errors.nda && (
                           <p className="mt-2 text-xs text-red-400">{errors.nda.message}</p>
@@ -266,14 +283,14 @@ export function Contact() {
 
                 <div className="flex items-center justify-center gap-2 pt-2 text-xs text-alpine-cream/40">
                   <ShieldCheck size={14} />
-                  Protected under Swiss legal privilege
+                  Treated confidentially, always
                 </div>
                 <p className="text-center text-xs text-alpine-cream/35">
                   Your information is used solely by VisideaX to respond to
                   your request and is never shared with third parties.{" "}
-                  <a href="/privacy" className="underline hover:text-alpine-gold">
+                  <Link href="/privacy" className="underline hover:text-alpine-gold">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </p>
               </motion.form>
             )}

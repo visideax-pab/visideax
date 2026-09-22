@@ -1,21 +1,33 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const STORAGE_KEY = "visideax-cookie-consent";
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
+
+function hasConsentCookie() {
+  return document.cookie
+    .split("; ")
+    .some((row) => row.startsWith(`${STORAGE_KEY}=accepted`));
+}
 
 export function CookieConsent() {
   const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
+    // Check both localStorage and a real cookie — some browsers partition or
+    // clear localStorage (e.g. Safari ITP) more aggressively than cookies,
+    // which was causing the banner to reappear even after accepting.
+    let stored = false;
     try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (!stored) setVisible(true);
+      stored = !!window.localStorage.getItem(STORAGE_KEY) || hasConsentCookie();
     } catch {
-      setVisible(true);
+      stored = hasConsentCookie();
     }
+    if (!stored) setVisible(true);
   }, []);
 
   const accept = () => {
@@ -24,6 +36,7 @@ export function CookieConsent() {
     } catch {
       // ignore storage errors
     }
+    document.cookie = `${STORAGE_KEY}=accepted; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
     setVisible(false);
   };
 
@@ -43,9 +56,9 @@ export function CookieConsent() {
               function. Any information you submit through our forms is used
               solely by VisideaX to respond to your inquiry — it is never
               sold or shared with third parties.{" "}
-              <a href="/privacy" className="underline hover:text-alpine-gold">
+              <Link href="/privacy" className="underline hover:text-alpine-gold">
                 Learn more
-              </a>
+              </Link>
               .
             </p>
             <Button variant="gold" size="sm" onClick={accept} className="shrink-0">

@@ -1,3 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Mail, Linkedin } from "lucide-react";
 import { footprint } from "@/lib/data";
 
@@ -7,20 +9,22 @@ export function Footer() {
       <div className="container">
         <div className="flex flex-col items-start justify-between gap-12 lg:flex-row">
           <div className="max-w-sm">
-            <img
+            <Image
               src="/logo-mark-light.svg"
               alt="VisideaX"
+              width={220}
+              height={47}
               className="h-9 w-auto"
             />
             <p className="mt-5 text-sm leading-relaxed text-alpine-cream/50">
-              Partnership Advisory Boutique. Architecting durable alliances
-              between capital, luxury brands, and the European territories
-              that anchor them.
+              A newly formed, privately held advisory on high-network events
+              and large-scale partnerships, conducted confidentially across
+              Europe.
             </p>
           </div>
 
           <div>
-            <span className="eyebrow text-alpine-gold">Footprint</span>
+            <span className="eyebrow text-alpine-gold">Presence</span>
             <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
               {footprint.map((place, i) => (
                 <span key={place} className="flex items-center gap-2 text-sm text-alpine-cream/60">
@@ -32,41 +36,38 @@ export function Footer() {
                 </span>
               ))}
             </div>
-            <p className="mt-4 text-xs uppercase tracking-[0.14em] text-alpine-cream/30">
-              Switzerland · United Kingdom
-            </p>
           </div>
 
           <div>
             <span className="eyebrow text-alpine-gold">Navigate</span>
             <div className="mt-5 flex flex-col gap-3">
-              <a href="/#overview" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              <Link href="/#overview" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Executive Overview
-              </a>
-              <a href="/#advisory" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              </Link>
+              <Link href="/#advisory" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Advisory Services
-              </a>
-              <a href="/why-us" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              </Link>
+              <Link href="/why-us" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 For Entrepreneurs
-              </a>
-              <a href="/how-we-work" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              </Link>
+              <Link href="/how-we-work" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 How We Work
-              </a>
-              <a href="/insights" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              </Link>
+              <Link href="/insights" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Insights
-              </a>
-              <a href="/careers" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              </Link>
+              <Link href="/careers" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Collaborate
-              </a>
-              <a href="/annual-report" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
-                Annual Report
-              </a>
-              <a href="/#contact" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              </Link>
+              <Link href="/annual-report" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+                Market Briefing
+              </Link>
+              <Link href="/#contact" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Confidential Mandate
-              </a>
-              <a href="/tool" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
+              </Link>
+              <Link href="/tool" className="text-sm text-alpine-cream/60 hover:text-alpine-gold transition-colors">
                 Client Feasibility Tool
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -98,14 +99,14 @@ export function Footer() {
             © {new Date().getFullYear()} VisideaX. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a
+            <Link
               href="/privacy"
               className="text-xs text-alpine-cream/30 hover:text-alpine-gold transition-colors"
             >
               Privacy Policy
-            </a>
+            </Link>
             <p className="text-xs text-alpine-cream/30">
-              Partnership Advisory Boutique — St. Moritz · Zürich · London
+              Events & Strategic Partnerships — St. Moritz · Lugano · Bratislava
             </p>
           </div>
         </div>

@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Magnetic } from "@/components/Magnetic";
 import { heroMetrics } from "@/lib/data";
 
@@ -64,7 +63,7 @@ export function Hero() {
         >
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-alpine-gold" />
           <span className="eyebrow text-alpine-gold">
-            Private Swiss Boutique Advisory
+            A New, Private Advisory for High-Network Events
           </span>
         </motion.div>
 
@@ -77,7 +76,7 @@ export function Hero() {
         >
           VisideaX
           <span className="mx-4 text-alpine-gold">|</span>
-          Partnership Advisory Boutique
+          Events & Strategic Partnerships Across Europe
         </motion.h1>
 
         <motion.p
@@ -87,9 +86,9 @@ export function Hero() {
           variants={fadeUp}
           className="mt-8 max-w-2xl text-balance text-base font-light leading-relaxed text-alpine-cream/70 sm:text-lg"
         >
-          Architects of durable alliances between capital, luxury brands, and
-          the European territories that anchor them — assembled quietly,
-          between Zürich and London, for those who already know where to look.
+          A newly formed, privately held advisory on the events and
+          large-scale partnerships that bring principals, institutions and
+          brands together — conducted confidentially, across Europe.
         </motion.p>
 
         <motion.div
@@ -124,17 +123,7 @@ export function Hero() {
           {heroMetrics.map((metric) => (
             <div key={metric.label} className="flex flex-col items-center">
               <div className="font-display text-2xl text-alpine-gold sm:text-3xl">
-                {metric.type === "counter" ? (
-                  <AnimatedCounter
-                    value={metric.value}
-                    decimals={metric.decimals}
-                    prefix={metric.prefix}
-                    suffix={metric.suffix}
-                    className="text-4xl sm:text-5xl"
-                  />
-                ) : (
-                  metric.text
-                )}
+                {metric.text}
               </div>
               <p className="mt-3 max-w-[220px] text-center text-xs font-medium uppercase tracking-[0.12em] text-alpine-cream/55">
                 {metric.label}

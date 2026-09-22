@@ -26,8 +26,8 @@ export default function PrivacyPage() {
                 Who We Are
               </h2>
               <p className="mt-3">
-                VisideaX is a private Swiss boutique advisory operating
-                across St. Moritz, Zürich, and London. This policy explains
+                VisideaX is a strategic consulting practice operating
+                across Europe, with presence in St. Moritz, Lugano and Bratislava. This policy explains
                 what information we collect through this website and how we
                 use it.
               </p>
@@ -50,10 +50,10 @@ export default function PrivacyPage() {
                 Information You Submit
               </h2>
               <p className="mt-3">
-                When you use our Confidential Mandate Request, Annual Report
-                Request, or internship application, we collect the
+                When you use our project inquiry form, request our market
+                briefing, or apply to collaborate with us, we collect the
                 information you choose to provide — such as your name, email
-                address, entity name, and message. This information is used
+                address, company name, and message. This information is used
                 solely by VisideaX to respond to your inquiry.
               </p>
               <p className="mt-3">
